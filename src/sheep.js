@@ -46,10 +46,10 @@ class Sheep {
 
         if (Math.abs(this.vel[0]) > 0.25 || Math.abs(this.vel[1]) > 0.25) {
             if (this.vel[0] > 0) this.vel[0] -= this.friction;
-            this.vel[0] += this.friction;
+            if (this.vel[0] < 0) this.vel[0] += this.friction;
 
             if (this.vel[1] > 0) this.vel[1] -= this.friction;
-            this.vel[1] += this.friction;
+            if (this.vel[1] < 0) this.vel[1] += this.friction;
         }
 
         this.pos[0] += this.vel[0]

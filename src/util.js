@@ -28,30 +28,36 @@ const collideCircles = (object1, otherObject) => {
     return distanceBtwn < radiiSum + 8;
 }
 
-const collideCircleRectangle = (sheep, otherObject) => {
-    let testX = sheep.pos[0];
-    let testY = sheep.pos[1];
+const collideCircleRectangle = (object1, otherObject) => {
+    let testX = object1.pos[0];
+    let testY = object1.pos[1];
     const rx = otherObject.pos[0]
     const ry = otherObject.pos[1]
-    let collisionDirection = "x";
+    let collisionDirection;
 
-    if (testX < rx) testX = rx;
-    if (testX > rx + otherObject.width) testX = rx + otherObject.width;
+    if (testX < rx) {
+        testX = rx;
+        collisionDirection = "left";
+    }
+    if (testX > rx + otherObject.width) {
+        testX = rx + otherObject.width;
+        collisionDirection = "right";
+    }
 
     if (testY < ry) {
         testY = ry;
-        collisionDirection = "y";
+        collisionDirection = "top";
     }
     if (testY > ry + otherObject.height) {
         testY = ry + otherObject.height;
-        collisionDirection = "y";
+        collisionDirection = "bottom";
     }
 
-    const distX = sheep.pos[0] - testX;
-    const distY = sheep.pos[1] - testY;
+    const distX = object1.pos[0] - testX;
+    const distY = object1.pos[1] - testY;
     const distance = Math.sqrt((distX * distX) + (distY * distY)) - 5;
 
-    return { collided: distance <= sheep.radius, direction: collisionDirection }
+    return { collided: distance <= object1.radius, direction: collisionDirection }
 }
 
 const rotateVelocities = (velocity, angle) => {

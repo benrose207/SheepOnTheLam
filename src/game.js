@@ -68,7 +68,7 @@ class Game {
     checkCollision() {
         for (let i = 0; i < this.sheep.length; i++) {
             const currentObj = this.sheep[i];
-            for (let j = i + 1; j < this.sheep.length; j++) {
+            for (let j = i + 1; j < this.sheep.length; j++) { // could this be refactor to include all moving objects (i.e. sheepdog?)
                 const compareObj = this.sheep[j];
 
                 if (isCollidedWith(currentObj, compareObj)) {
@@ -85,9 +85,20 @@ class Game {
                 const stationaryObj = this.fences[k];
                 const { collided, direction } = isCollidedWith(currentObj, stationaryObj);
                 if (collided) {
-                    if (direction === "x") currentObj.vel[0] = -currentObj.vel[0];
-                    if (direction === "y") currentObj.vel[1] = -currentObj.vel[1];
+                    if (direction === "left" || direction === "right") currentObj.vel[0] = -currentObj.vel[0];
+                    if (direction === "top" || direction === "bottom") currentObj.vel[1] = -currentObj.vel[1];
                 }
+            }
+        }
+
+        for (let l = 0; l < this.fences.length; l++) {
+            const stationaryObj = this.fences[l];
+            const { collided, direction } = isCollidedWith(this.sheepDog, stationaryObj);
+            if (collided) {
+                if (direction === "left") this.sheepDog.pos[0] -= 3;
+                if (direction === "right") this.sheepDog.pos[0] += 3;
+                if (direction === "top") this.sheepDog.pos[1] -= 3;
+                if (direction === "bottom") this.sheepDog.pos[1] += 3;
             }
         }
     }
