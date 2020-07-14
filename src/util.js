@@ -1,4 +1,5 @@
 import Sheep from "./sheep";
+import SheepDog from "./sheepdog";
 
 export const randomVec = (length) => {
     const deg = 2 * Math.PI * Math.random();
@@ -9,18 +10,18 @@ const scale = (vec, m) => {
     return [vec[0] * m, vec[1] * m];
 }
 
-export const isCollidedWith = (sheep, otherObject) => {
-    if (otherObject instanceof Sheep) {
-        return collideCircles(sheep, otherObject);
+export const isCollidedWith = (object1, otherObject) => {
+    if (otherObject instanceof Sheep || otherObject instanceof SheepDog) {
+        return collideCircles(object1, otherObject);
     } else {
-        return collideCircleRectangle(sheep, otherObject);
+        return collideCircleRectangle(object1, otherObject);
     }
 }
 
-const collideCircles = (sheep, otherObject) => {
-    let radiiSum = sheep.radius + otherObject.radius;
+const collideCircles = (object1, otherObject) => {
+    let radiiSum = object1.radius + otherObject.radius;
     let distanceBtwn = Math.sqrt(
-        (sheep.pos[0] - otherObject.pos[0]) ** 2 + (sheep.pos[1] - otherObject.pos[1]) ** 2
+        (object1.pos[0] - otherObject.pos[0]) ** 2 + (object1.pos[1] - otherObject.pos[1]) ** 2
     );
 
     return distanceBtwn < radiiSum + 8;
@@ -85,7 +86,7 @@ export const resolveCollision = (obj1, obj2) => {
 
         obj1.vel[0] = finalV1.x;
         obj1.vel[1] = finalV1.y;
-        obj2.vel[0] = finalV2.x;
-        obj2.vel[1] = finalV2.y;
+        // obj2.vel[0] = finalV2.x;
+        // obj2.vel[1] = finalV2.y;
     }
 }

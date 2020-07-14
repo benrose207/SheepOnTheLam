@@ -47,49 +47,6 @@ class Sheep {
         this.pos[1] += this.vel[1];
     }
 
-    // isCollidedWith(otherObject) {
-    //     if (otherObject instanceof Sheep) {
-    //         return this.collideCircles(otherObject);
-    //     } else {
-    //         return this.collideCircleRectangle(otherObject);
-    //     }
-    // }
-
-    // collideCircles(otherObject) {
-    //     let radiiSum = this.radius + otherObject.radius;
-    //     let distanceBtwn = Math.sqrt(
-    //         (this.pos[0] - otherObject.pos[0]) ** 2 + (this.pos[1] - otherObject.pos[1]) ** 2
-    //     );
-
-    //     return distanceBtwn < radiiSum + 8;
-    // }
-
-    // collideCircleRectangle(otherObject) {
-    //     let testX = this.pos[0];
-    //     let testY = this.pos[1];
-    //     const rx = otherObject.pos[0]
-    //     const ry = otherObject.pos[1]
-    //     let collisionDirection = "x";
-
-    //     if (testX < rx) testX = rx;
-    //     if (testX > rx + otherObject.width) testX = rx + otherObject.width;
-
-    //     if (testY < ry) {
-    //         testY = ry;
-    //         collisionDirection = "y";
-    //     }
-    //     if (testY > ry + otherObject.height) {
-    //         testY = ry + otherObject.height;
-    //         collisionDirection = "y";
-    //     }
-
-    //     const distX = this.pos[0] - testX;
-    //     const distY = this.pos[1] - testY;
-    //     const distance = Math.sqrt((distX * distX) + (distY * distY)) - 5;
-
-    //     return { collided: distance <= this.radius, direction: collisionDirection }
-    // }
-
     collideWithSheep(otherSheep) {
         this.vel[0] = 0;
         this.vel[1] = 0;
@@ -98,7 +55,7 @@ class Sheep {
             this.vel[0] = otherSheep.vel[0];
             this.vel[1] = otherSheep.vel[1];
 
-        }, 3000)
+        }, 500)
     }
 }
 

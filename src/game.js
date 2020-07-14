@@ -1,4 +1,5 @@
 import Sheep from "./sheep";
+import SheepDog from "./sheepdog";
 import FenceBox from "./fence";
 import { isCollidedWith, resolveCollision } from "./util";
 
@@ -14,6 +15,7 @@ class Game {
         this.ctx = ctx;
         this.addFences();
         this.addSheep();
+        this.addSheepDog();
     }
 
     addSheep() {
@@ -27,6 +29,18 @@ class Game {
             }
             this.sheep.push(newSheep);
         }
+    }
+
+    addSheepDog() {
+        let sheepDog = new SheepDog(this.ctx);
+        for (let i = 0; i < this.sheep.length; i++) {
+            if (isCollidedWith(sheepDog, this.sheep[i])) {
+                sheepDog = new SheepDog(this.ctx);
+                i = 0;
+            }
+        }
+
+        this.sheepDog = sheepDog;
     }
 
     addFences() {
@@ -43,6 +57,7 @@ class Game {
         this.sheep.forEach(sheep => sheep.draw(this.ctx));
 
         this.fences.forEach(fence => fence.draw());
+        this.sheepDog.draw();
     }
 
     moveObjects() {
@@ -56,8 +71,8 @@ class Game {
                 const compareObj = this.sheep[j];
 
                 if (isCollidedWith(currentObj, compareObj)) {
-                    // currentObj.collideWithSheep(compareObj);
                     resolveCollision(currentObj, compareObj);
+                    compareObj.collideWithSheep(currentObj);
                 }
             }
             
