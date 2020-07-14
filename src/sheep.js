@@ -9,7 +9,7 @@ const constants = {
 class Sheep extends MovingObject {
     constructor(pos) {
         super(pos);
-        this.vel = randomVec(Math.ceil(Math.random() * 0.25));
+        this.vel = randomVec(0.25);
         this.color = constants.COLOR;
         this.radius = constants.RADIUS;
     }
