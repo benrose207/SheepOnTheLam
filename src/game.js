@@ -1,5 +1,6 @@
 import Sheep from "./sheep";
 import FenceBox from "./fence";
+import { isCollidedWith, resolveCollision } from "./util";
 
 const gameConstants = {
     NUM_SHEEP: 10
@@ -17,7 +18,13 @@ class Game {
 
     addSheep() {
         for (let i = 0; i < this.numSheep; i++) {
-            const newSheep = new Sheep(this.ctx);
+            let newSheep = new Sheep(this.ctx);
+            for (let j = 1; j < this.sheep.length; j++) {
+                if (isCollidedWith(newSheep, this.sheep[j])) {
+                    newSheep = new Sheep(this.ctx);
+                    j = 0;
+                }
+            }
             this.sheep.push(newSheep);
         }
     }
@@ -48,13 +55,15 @@ class Game {
             for (let j = i + 1; j < this.sheep.length; j++) {
                 const compareObj = this.sheep[j];
 
-                if (currentObj.isCollidedWith(compareObj)) {
+                if (isCollidedWith(currentObj, compareObj)) {
+                    // currentObj.collideWithSheep(compareObj);
+                    resolveCollision(currentObj, compareObj);
                 }
             }
             
             for (let k = 0; k < this.fences.length; k++) {
                 const stationaryObj = this.fences[k];
-                const { collided, direction } = currentObj.isCollidedWith(stationaryObj);
+                const { collided, direction } = isCollidedWith(currentObj, stationaryObj);
                 if (collided) {
                     if (direction === "x") currentObj.vel[0] = -currentObj.vel[0];
                     if (direction === "y") currentObj.vel[1] = -currentObj.vel[1];
