@@ -23,7 +23,8 @@ const collideCircles = (object1, otherObject) => {
     let distanceBtwn = Math.sqrt(
         (object1.pos[0] - otherObject.pos[0]) ** 2 + (object1.pos[1] - otherObject.pos[1]) ** 2
     );
-
+    
+    if (otherObject instanceof SheepDog) return distanceBtwn < radiiSum + 30;
     return distanceBtwn < radiiSum + 8;
 }
 

@@ -62,10 +62,11 @@ class Game {
 
     moveObjects() {
         this.sheep.forEach(sheep => sheep.move());
+        this.sheepDog.move();
     }
 
     checkCollision() {
-        for (let i = 0; i < this.sheep.length - 1; i++) {
+        for (let i = 0; i < this.sheep.length; i++) {
             const currentObj = this.sheep[i];
             for (let j = i + 1; j < this.sheep.length; j++) {
                 const compareObj = this.sheep[j];
@@ -74,6 +75,10 @@ class Game {
                     resolveCollision(currentObj, compareObj);
                     compareObj.collideWithSheep(currentObj);
                 }
+            }
+
+            if (isCollidedWith(currentObj, this.sheepDog)) {
+                resolveCollision(currentObj, this.sheepDog);
             }
             
             for (let k = 0; k < this.fences.length; k++) {

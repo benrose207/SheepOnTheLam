@@ -14,6 +14,7 @@ class Sheep {
         const yPos = Math.random() * (this.ctx.canvas.height - this.radius * 2) + this.radius
         this.pos = [xPos, yPos];
         this.vel = randomVec(0.25);
+        this.friction = 0.02;
 
         this.color = constants.COLOR;
     }
@@ -41,6 +42,14 @@ class Sheep {
 
         if (this.pos[1] + this.radius > this.ctx.canvas.height || this.pos[1] - this.radius < 0) {
             this.vel[1] = - this.vel[1];
+        }
+
+        if (Math.abs(this.vel[0]) > 0.25 || Math.abs(this.vel[1]) > 0.25) {
+            if (this.vel[0] > 0) this.vel[0] -= this.friction;
+            this.vel[0] += this.friction;
+
+            if (this.vel[1] > 0) this.vel[1] -= this.friction;
+            this.vel[1] += this.friction;
         }
 
         this.pos[0] += this.vel[0]
