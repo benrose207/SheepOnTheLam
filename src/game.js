@@ -17,13 +17,16 @@ class Game {
         this.addSheep();
         this.addSheepDog();
     }
-
+    
     addSheep() {
+        let img = new Image();
+        img.src = "../assets/images/sheep_walking.png";
+
         for (let i = 0; i < this.numSheep; i++) {
-            let newSheep = new Sheep(this.ctx);
+            let newSheep = new Sheep(this.ctx, img);
             for (let j = 1; j < this.sheep.length; j++) {
                 if (isCollidedWith(newSheep, this.sheep[j])) {
-                    newSheep = new Sheep(this.ctx);
+                    newSheep = new Sheep(this.ctx, img);
                     j = 0;
                 }
             }
@@ -104,7 +107,18 @@ class Game {
     }
 
     won() {   
-        return this.sheep.every(sheep => sheep.pos[0] < 85)
+        // return this.sheep.every(sheep => sheep.pos[0] < 85)
+        return this.sheepRemaining() === 0;
+    }
+
+    sheepRemaining() {
+        let count = 0;
+
+        this.sheep.forEach(sheep => {
+            if (sheep.pos[0] > 85) count += 1;
+        })
+
+        return count;
     }
 }
 
