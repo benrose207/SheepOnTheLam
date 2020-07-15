@@ -44,9 +44,9 @@ class Game {
     }
 
     addFences() {
-        const fenceTop = new FenceBox(this.ctx, 100, 0, 10, 225);
-        const fenceBottom = new FenceBox(this.ctx, 100, 350, 10, 225);
-        const fenceBack = new FenceBox(this.ctx, -100, 0, 10, 550);
+        const fenceTop = new FenceBox(this.ctx, 100, 0, 36, 225);
+        const fenceBottom = new FenceBox(this.ctx, 100, 350, 36, 225);
+        const fenceBack = new FenceBox(this.ctx, -100, 0, 36, 550);
         this.fences.push(fenceTop, fenceBottom, fenceBack);
     }
 
@@ -104,7 +104,7 @@ class Game {
     }
 
     won() {   
-        return this.sheep.every(sheep => sheep.pos[0] < 100)
+        return this.sheep.every(sheep => sheep.pos[0] < 85)
     }
 }
 

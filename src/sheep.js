@@ -10,7 +10,7 @@ class Sheep {
         this.ctx = ctx;
         this.radius = constants.RADIUS;
 
-        const xPos = Math.random() * ((this.ctx.canvas.width - this.radius * 2) - 130) + 130;
+        const xPos = Math.random() * ((this.ctx.canvas.width - this.radius * 2) - 160) + 160;
         const yPos = Math.random() * (this.ctx.canvas.height - this.radius * 2) + this.radius
         this.pos = [xPos, yPos];
         this.vel = randomVec(0.25);
