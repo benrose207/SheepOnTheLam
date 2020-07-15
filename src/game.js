@@ -107,7 +107,6 @@ class Game {
     }
 
     won() {   
-        // return this.sheep.every(sheep => sheep.pos[0] < 85)
         return this.sheepRemaining() === 0;
     }
 

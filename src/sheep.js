@@ -2,7 +2,7 @@ import { randomVec } from "./util";
 
 const constants = {
     COLOR: "rgb(255, 255, 255)",
-    RADIUS: 10
+    RADIUS: 20
 }
 
 class Sheep {
@@ -25,27 +25,20 @@ class Sheep {
         this.scaledHeight = this.scale * this.frameHeight;
         this.numCols = 3;
         this.currentLoop = 0;
+        this.currentRow = 0;
         this.frameCount = 0;
     }
 
     draw(ctx) {
-        ctx.beginPath();
+        if (this.vel[0] === 0 && this.vel[1] === 0) {
+            this.frameRate = 60;
+        }
 
-        ctx.arc(
-            this.pos[0],
-            this.pos[1],
-            this.radius,
-            0,
-            2 * Math.PI,
-            false
-        );
-        ctx.fillStyle = this.color;
-        ctx.fill();
-
+        this.vel[0] <= 0 ? this.currentRow = 0 : this.currentRow = 1;
 
         this.frameCount++;
-        this.drawFrame(this.currentLoop, 0, 0, 0);
-        if (this.frameCount < 15) {
+        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 1.5, this.pos[1] - this.radius * 1.3);
+        if (this.frameCount < this.frameRate) {
             return
         }
         this.frameCount = 0;
@@ -70,6 +63,8 @@ class Sheep {
     }
 
     move() {
+        this.frameRate = 15;
+
         if (this.pos[0] + this.radius > this.ctx.canvas.width) {
             this.vel[0] = -this.vel[0];
         }
@@ -79,6 +74,7 @@ class Sheep {
         }
 
         if (Math.abs(this.vel[0]) > 0.25 || Math.abs(this.vel[1]) > 0.25) {
+            this.frameRate = 8;
             if (this.vel[0] > 0) this.vel[0] -= this.friction;
             if (this.vel[0] < 0) this.vel[0] += this.friction;
 
