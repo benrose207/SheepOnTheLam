@@ -130,7 +130,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _gam
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _game_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game_view */ \"./src/game_view.js\");\n\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n    const canvas = document.getElementById(\"game-canvas\");\n    canvas.height = 550;\n    canvas.width = 900;\n\n    const ctx = canvas.getContext('2d');\n    ctx.fillStyle = \"rgb(149, 223, 114)\";\n    ctx.fillRect(0, 0, canvas.width, canvas.height);\n\n    const gameView = new _game_view__WEBPACK_IMPORTED_MODULE_0__[\"default\"](ctx);\n    gameView.start();\n})\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _game_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game_view */ \"./src/game_view.js\");\n\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n    const startButton = document.querySelector(\".start-button\");\n    \n    startButton.addEventListener(\"click\", () => {\n        const canvas = document.getElementById(\"game-canvas\");\n        canvas.height = 550;\n        canvas.width = 900;\n        canvas.classList.add(\"top-element\")\n\n        const ctx = canvas.getContext('2d');\n        ctx.fillStyle = \"rgb(149, 223, 114)\";\n        ctx.fillRect(0, 0, canvas.width, canvas.height);\n    \n        const gameView = new _game_view__WEBPACK_IMPORTED_MODULE_0__[\"default\"](ctx);\n        gameView.start();\n    });\n})\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 

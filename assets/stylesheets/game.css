@@ -1,5 +1,6 @@
 body {
     background-color: rgba(230, 230, 230);
+    font-family: 'Roboto', sans-serif;
 }
 
 main {
@@ -21,4 +22,54 @@ h1 {
         1px 1px 0 rgb(90, 90, 90);
     font-size: 80px;
     margin: 30px;
+}
+
+.game-view-container {
+    position: relative;
+}
+
+#game-canvas {
+    position: absolute;
+    left: 50%;
+    margin-left: -450px;
+}
+
+.game-menu {
+    position: absolute;
+    left: 50%;
+    margin-left: -450px;
+    z-index: 0;
+    height: 550px;
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(149, 223, 114);
+}
+
+.title-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 300px;
+    width: 700px;
+}
+
+
+.title-card > h2 {
+    text-align: center;
+    font-size: 40px;
+    color: white;
+}
+
+.start-button {
+    background-color: white;
+    padding: 15px 40px;
+    border-radius: 8px;
+    margin: 15px;
+}
+
+.top-element {
+    z-index: 1;
 }
