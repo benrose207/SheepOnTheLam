@@ -8,12 +8,15 @@ class GameView {
 
     start() {
         this.bindKeyboardHandlers();
+        this.gameLoop();
+    }
 
-        setInterval(() => {
-            this.game.moveObjects();
-            this.game.checkCollision();
-            this.game.draw(this.ctx);
-        }, 20);
+    gameLoop() {
+        this.game.moveObjects();
+        this.game.checkCollision();
+        this.game.draw(this.ctx);
+
+        window.requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     bindKeyboardHandlers() {

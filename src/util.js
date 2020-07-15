@@ -86,14 +86,10 @@ export const resolveCollision = (obj1, obj2) => {
         const u2 = rotateVelocities(obj2.vel, angle);
 
         const v1 = [(u1.x * (m1 - m2) / (m1 + m2) + u2.x * 2 * m2 / (m1 + m2)), u1.y]
-        const v2 = [(u2.x * (m1 - m2) / (m1 + m2) + u1.x * 2 * m2 / (m1 + m2)), u2.y]
 
         const finalV1 = rotateVelocities(v1, -angle);
-        const finalV2 = rotateVelocities(v2, -angle);
 
         obj1.vel[0] = finalV1.x;
         obj1.vel[1] = finalV1.y;
-        // obj2.vel[0] = finalV2.x;
-        // obj2.vel[1] = finalV2.y;
     }
 }

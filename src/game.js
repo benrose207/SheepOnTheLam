@@ -65,41 +65,41 @@ class Game {
         this.sheepDog.move();
     }
 
+    allMovingObjects() {
+        return this.sheep.concat(this.sheepDog);
+    }
+
     checkCollision() {
-        for (let i = 0; i < this.sheep.length; i++) {
-            const currentObj = this.sheep[i];
-            for (let j = i + 1; j < this.sheep.length; j++) { // could this be refactor to include all moving objects (i.e. sheepdog?)
-                const compareObj = this.sheep[j];
+        const movingObjects = this.allMovingObjects();
 
-                if (isCollidedWith(currentObj, compareObj)) {
-                    resolveCollision(currentObj, compareObj);
-                    compareObj.collideWithSheep(currentObj);
+        for (let i = 0; i < this.sheep.length; i++) { // Checks whether any sheep has collided with something
+            const sheep = this.sheep[i];
+            for (let j = i + 1; j < movingObjects.length; j++) { // Checking against other moving objects
+                const compareObj = movingObjects[j];
+
+                if (isCollidedWith(sheep, compareObj)) {
+                    resolveCollision(sheep, compareObj);
+                    if (compareObj instanceof Sheep) compareObj.collideWithSheep(sheep);
                 }
             }
-
-            if (isCollidedWith(currentObj, this.sheepDog)) {
-                resolveCollision(currentObj, this.sheepDog);
-            }
-            
-            for (let k = 0; k < this.fences.length; k++) {
-                const stationaryObj = this.fences[k];
-                const { collided, direction } = isCollidedWith(currentObj, stationaryObj);
-                if (collided) {
-                    if (direction === "left" || direction === "right") currentObj.vel[0] = -currentObj.vel[0];
-                    if (direction === "top" || direction === "bottom") currentObj.vel[1] = -currentObj.vel[1];
-                }
-            }
+            this.checkSheepObstacleCollisions(sheep);
         }
+        this.checkSheepdogObstacleCollisions();
+    }
 
-        for (let l = 0; l < this.fences.length; l++) {
-            const stationaryObj = this.fences[l];
+    checkSheepObstacleCollisions(sheep) {
+        for (let i = 0; i < this.fences.length; i++) {
+            const stationaryObj = this.fences[i];
+            const { collided, direction } = isCollidedWith(sheep, stationaryObj);
+            if (collided) sheep.collideWithObstacle(direction);
+        }
+    }
+
+    checkSheepdogObstacleCollisions() {
+        for (let i = 0; i < this.fences.length; i++) {
+            const stationaryObj = this.fences[i];
             const { collided, direction } = isCollidedWith(this.sheepDog, stationaryObj);
-            if (collided) {
-                if (direction === "left") this.sheepDog.pos[0] -= 3;
-                if (direction === "right") this.sheepDog.pos[0] += 3;
-                if (direction === "top") this.sheepDog.pos[1] -= 3;
-                if (direction === "bottom") this.sheepDog.pos[1] += 3;
-            }
+            if (collided) this.sheepDog.collideWithObstacle(direction);
         }
     }
 }

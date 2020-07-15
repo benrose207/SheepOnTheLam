@@ -11,10 +11,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const gameView = new GameView(ctx);
     gameView.start();
-
-    //testing
-
-    // window.MovingObject = MovingObject;
-    // window.Sheep = Sheep;
-    // window.ctx = ctx;
 })

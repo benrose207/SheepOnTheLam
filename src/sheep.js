@@ -66,6 +66,11 @@ class Sheep {
 
         }, 500)
     }
+
+    collideWithObstacle(direction) {
+        if (direction === "left" || direction === "right") this.vel[0] = -this.vel[0];
+        if (direction === "top" || direction === "bottom") this.vel[1] = -this.vel[1];
+    }
 }
 
 export default Sheep;

@@ -94,6 +94,13 @@ class SheepDog {
             this.upKey = false;
         }
     }
+
+    collideWithObstacle(direction) {
+        if (direction === "left") this.pos[0] -= 3;
+        if (direction === "right") this.pos[0] += 3;
+        if (direction === "top") this.pos[1] -= 3;
+        if (direction === "bottom") this.pos[1] += 3;   
+    }
 }
 
 export default SheepDog;
