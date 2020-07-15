@@ -102,6 +102,10 @@ class Game {
             if (collided) this.sheepDog.collideWithObstacle(direction);
         }
     }
+
+    won() {   
+        return this.sheep.every(sheep => sheep.pos[0] < 100)
+    }
 }
 
 export default Game;

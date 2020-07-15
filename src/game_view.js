@@ -16,6 +16,8 @@ class GameView {
         this.game.checkCollision();
         this.game.draw(this.ctx);
 
+        if (this.game.won()) alert("You win!");
+
         window.requestAnimationFrame(this.gameLoop.bind(this));
     }
 
