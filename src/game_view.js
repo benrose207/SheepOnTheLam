@@ -16,9 +16,12 @@ class GameView {
         this.game.checkCollision();
         this.game.draw(this.ctx);
 
-        if (this.game.won()) alert("You win!");
+        if (this.game.gameOver()) {
+            window.cancelAnimationFrame(this.animationRequestId);
+            return
+        }
 
-        window.requestAnimationFrame(this.gameLoop.bind(this));
+        this.animationRequestId = window.requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     bindKeyboardHandlers() {
