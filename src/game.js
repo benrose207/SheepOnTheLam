@@ -1,25 +1,23 @@
 import Sheep from "./sheep";
 import SheepDog from "./sheepdog";
 import FenceBox from "./fence";
+import Timer from "./timer";
 import { isCollidedWith, resolveCollision } from "./util";
 
 const gameConstants = {
-    NUM_SHEEP: 30,
-    TIME_REMAINING: "02:00"
+    NUM_SHEEP: 10
 }
 
 class Game {
     constructor(ctx) {
         this.numSheep = gameConstants.NUM_SHEEP;
-        this.timeRemainig = gameConstants.TIME_REMAINING;
         this.sheep = [];
-        this.fences = [];
+        this.stationaryObjects = [];
         this.ctx = ctx;
         this.addFences();
+        this.addTimer();
         this.addSheep();
         this.addSheepDog();
-
-        this.countdown();
     }
     
     addSheep() {
@@ -28,8 +26,11 @@ class Game {
 
         for (let i = 0; i < this.numSheep; i++) {
             let newSheep = new Sheep(this.ctx, img);
-            for (let j = 1; j < this.sheep.length; j++) {
-                if (isCollidedWith(newSheep, this.sheep[j])) {
+            const objects = this.allObjects();
+
+            for (let j = 0; j < objects.length; j++) {
+                const collided = isCollidedWith(newSheep, objects[j]);
+                if (collided === true || collided.collided === true) {
                     newSheep = new Sheep(this.ctx, img);
                     j = 0;
                 }
@@ -46,7 +47,6 @@ class Game {
                 i = 0;
             }
         }
-
         this.sheepDog = sheepDog;
     }
 
@@ -54,7 +54,13 @@ class Game {
         const fenceTop = new FenceBox(this.ctx, 100, 0, 36, 225);
         const fenceBottom = new FenceBox(this.ctx, 100, 350, 36, 225);
         const fenceBack = new FenceBox(this.ctx, -100, 0, 36, 550);
-        this.fences.push(fenceTop, fenceBottom, fenceBack);
+        this.stationaryObjects.push(fenceTop, fenceBottom, fenceBack);
+    }
+    
+    addTimer() {
+        this.timer = new Timer(this.ctx);
+        this.stationaryObjects.push(this.timer);
+        this.timer.countdown();
     }
 
     draw() {
@@ -63,29 +69,26 @@ class Game {
         this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         
         // Add objects to canvas
+        this.stationaryObjects.forEach(object => object.draw());
         this.sheep.forEach(sheep => sheep.draw());
-        this.fences.forEach(fence => fence.draw());
         this.sheepDog.draw();
 
         // Sheep remaining counter
+        this.ctx.font = "19px Roboto";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText("Sheep", 25, 30);
+
+        this.ctx.font = "19px Roboto";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText("Remaining", 5, 55);
+
         this.ctx.font = '80px Modak';
         this.ctx.fillStyle = "white"
         this.ctx.strokeStyle = "rgb(90, 90, 90)";
         const sheepLeft = this.sheepRemaining();
         const countXPos = sheepLeft < 10 ? 30 : 15;
-        this.ctx.fillText(`${sheepLeft}`, countXPos, 510);
-        this.ctx.strokeText(`${sheepLeft}`, countXPos, 510);
-        
-        this.ctx.font = "16px Roboto";
-        this.ctx.fillStyle = "white";
-        this.ctx.fillText("Sheep Remaining", 5, 535);
-
-        // Timer display
-        this.ctx.font = '80px Modak';
-        this.ctx.fillStyle = "white";
-        this.ctx.strokeStyle = "rgb(90, 90, 90)";
-        this.ctx.fillText(`${this.timeRemainig}`, 675, 510)
-        this.ctx.strokeText(`${this.timeRemainig}`, 675, 510)
+        this.ctx.fillText(`${sheepLeft}`, countXPos, 120);
+        this.ctx.strokeText(`${sheepLeft}`, countXPos, 120);
     }
 
     moveObjects() {
@@ -95,6 +98,12 @@ class Game {
 
     allMovingObjects() {
         return this.sheep.concat(this.sheepDog);
+    }
+
+    allObjects() {
+        const objects = this.sheep.concat(this.stationaryObjects);
+        if (this.sheepDog) objects.push(this.sheepDog);
+        return objects;
     }
 
     checkCollision() {
@@ -116,16 +125,16 @@ class Game {
     }
 
     checkSheepObstacleCollisions(sheep) {
-        for (let i = 0; i < this.fences.length; i++) {
-            const stationaryObj = this.fences[i];
+        for (let i = 0; i < this.stationaryObjects.length; i++) {
+            const stationaryObj = this.stationaryObjects[i];
             const { collided, direction } = isCollidedWith(sheep, stationaryObj);
             if (collided) sheep.collideWithObstacle(direction);
         }
     }
 
     checkSheepdogObstacleCollisions() {
-        for (let i = 0; i < this.fences.length; i++) {
-            const stationaryObj = this.fences[i];
+        for (let i = 0; i < this.stationaryObjects.length; i++) {
+            const stationaryObj = this.stationaryObjects[i];
             const { collided, direction } = isCollidedWith(this.sheepDog, stationaryObj);
             if (collided) this.sheepDog.collideWithObstacle(direction);
         }
@@ -140,33 +149,13 @@ class Game {
         
         return count;
     }
-
-    countdown() {
-        const timeParts = this.timeRemainig.split(":");
-        let minutes = parseInt(timeParts[0]);
-        let seconds = parseInt(timeParts[1]);
-
-        const intervalId = window.setInterval(() => {
-            if (seconds === 0) {
-                minutes -= 1;
-                seconds = 59;
-            } else {
-                seconds -= 1;
-            }
-
-            const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
-            const displaySeconds = seconds < 10 ? `0${seconds}` : seconds;
-            this.timeRemainig = `${displayMinutes}:${displaySeconds}`;
-        }, 1000);
-    }
     
     won() {   
         return this.sheepRemaining() === 0;
     }
 
     lost() {
-        // console.log(this.timeRemainig);
-        return this.timeRemainig === "00:00";
+        return this.timer.timeRemaining === "0:00";
     }
 
     gameOver() {
