@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const canvas = document.getElementById("game-canvas");
         canvas.height = 550;
         canvas.width = 900;
-        canvas.classList.add("top-element")
+        debugger
+        const menu = document.querySelectorAll("#start-menu, #lost-menu");
+        menu.forEach(ele => ele.classList.add("hide"));
 
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = "rgb(149, 223, 114)";

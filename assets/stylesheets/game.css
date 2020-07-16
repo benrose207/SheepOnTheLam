@@ -70,6 +70,12 @@ h1 {
     margin: 15px;
 }
 
-.top-element {
-    z-index: 1;
+.hide {
+    opacity: 0;
+    display: none;
+}
+
+.show {
+    opacity: 1;
+    display: flex;
 }

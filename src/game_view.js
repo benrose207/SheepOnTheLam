@@ -3,11 +3,11 @@ import Game from "./game";
 class GameView {
     constructor(ctx) {
         this.ctx = ctx;
-        this.game = new Game(this.ctx);
         this.round = 1;
     }
-
+    
     start() {
+        this.game = new Game(this.ctx, this.round);
         this.bindKeyboardHandlers();
         this.gameLoop();
     }
@@ -18,7 +18,7 @@ class GameView {
         this.game.draw(this.ctx);
 
         if (this.roundOver()) {
-            this.ctx.canvas.classList.remove("top-element");
+            // this.ctx.canvas.classList.remove("top-element");
         } else {
             this.animationRequestId = window.requestAnimationFrame(this.gameLoop.bind(this));
         }
@@ -31,6 +31,8 @@ class GameView {
             return true;
         } else if (this.game.lost()) {
             window.cancelAnimationFrame(this.animationRequestId);
+            const lostMenu = document.getElementById("lost-menu");
+            lostMenu.classList.add("show");
             return true;
         }
 
