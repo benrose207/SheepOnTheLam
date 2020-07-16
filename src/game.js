@@ -4,7 +4,7 @@ import FenceBox from "./fence";
 import { isCollidedWith, resolveCollision } from "./util";
 
 const gameConstants = {
-    NUM_SHEEP: 10,
+    NUM_SHEEP: 30,
     TIME_REMAINING: "02:00"
 }
 
@@ -63,7 +63,7 @@ class Game {
         this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         
         // Add objects to canvas
-        this.sheep.forEach(sheep => sheep.draw(this.ctx));
+        this.sheep.forEach(sheep => sheep.draw());
         this.fences.forEach(fence => fence.draw());
         this.sheepDog.draw();
 
@@ -106,8 +106,8 @@ class Game {
                 const compareObj = movingObjects[j];
 
                 if (isCollidedWith(sheep, compareObj)) {
-                    resolveCollision(sheep, compareObj);
-                    if (compareObj instanceof Sheep) compareObj.collideWithSheep(sheep);
+                    resolveCollision(sheep, compareObj); // resets colliding sheep's velocity 
+                    compareObj.collideWithSheep(sheep); // handles reaction of other object
                 }
             }
             this.checkSheepObstacleCollisions(sheep);

@@ -2,7 +2,7 @@ import { randomVec } from "./util";
 
 const constants = {
     COLOR: "rgb(255, 255, 255)",
-    RADIUS: 20
+    RADIUS: 25
 }
 
 class Sheep {
@@ -10,12 +10,11 @@ class Sheep {
         this.ctx = ctx;
         this.radius = constants.RADIUS;
 
-        const xPos = Math.random() * ((this.ctx.canvas.width - this.radius * 2) - 160) + 160;
+        const xPos = Math.random() * ((this.ctx.canvas.width - this.radius * 2) - 175) + 175;
         const yPos = Math.random() * (this.ctx.canvas.height - this.radius * 2) + this.radius
         this.pos = [xPos, yPos];
         this.vel = randomVec(0.25);
         this.friction = 0.02;
-        this.color = constants.COLOR;
 
         this.img = img;
         this.scale = 0.3;
@@ -29,7 +28,7 @@ class Sheep {
         this.frameCount = 0;
     }
 
-    draw(ctx) {
+    draw() {
         if (this.vel[0] === 0 && this.vel[1] === 0) {
             this.frameRate = 60;
         }
@@ -37,10 +36,11 @@ class Sheep {
         this.vel[0] <= 0 ? this.currentRow = 0 : this.currentRow = 1;
 
         this.frameCount++;
-        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 1.5, this.pos[1] - this.radius * 1.3);
+        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 1, this.pos[1] - this.radius * 0.8);
         if (this.frameCount < this.frameRate) {
             return
         }
+
         this.frameCount = 0;
         this.currentLoop++;
         if (this.currentLoop === this.numCols) {
@@ -93,8 +93,8 @@ class Sheep {
         let timeoutID = window.setTimeout(() => {
             this.vel[0] = otherSheep.vel[0];
             this.vel[1] = otherSheep.vel[1];
-
-        }, 500)
+            
+        }, 200)
     }
 
     collideWithObstacle(direction) {

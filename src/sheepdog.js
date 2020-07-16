@@ -95,6 +95,13 @@ class SheepDog {
         }
     }
 
+    collideWithSheep() {
+        if (this.vel[0] < 0) this.pos[0] += 3; 
+        if (this.vel[0] > 0) this.pos[0] -= 3; 
+        if (this.vel[1] < 0) this.pos[1] += 3; 
+        if (this.vel[1] > 0) this.pos[1] -= 3; 
+    }
+
     collideWithObstacle(direction) {
         if (direction === "left") this.pos[0] -= 3;
         if (direction === "right") this.pos[0] += 3;
