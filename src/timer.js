@@ -4,7 +4,7 @@ class Timer {
         this.height = 80;
         this.width = 190;
         this.pos = [710, 0];
-        this.timeRemaining = "2:00";
+        this.timeRemaining = "0:10";
     }
 
     draw() {

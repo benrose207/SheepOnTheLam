@@ -4,6 +4,7 @@ class GameView {
     constructor(ctx) {
         this.ctx = ctx;
         this.game = new Game(this.ctx);
+        this.round = 1;
     }
 
     start() {
@@ -16,12 +17,24 @@ class GameView {
         this.game.checkCollision();
         this.game.draw(this.ctx);
 
-        if (this.game.gameOver()) {
+        if (this.roundOver()) {
+            this.ctx.canvas.classList.remove("top-element");
+        } else {
+            this.animationRequestId = window.requestAnimationFrame(this.gameLoop.bind(this));
+        }
+    }
+
+    roundOver() {
+        if (this.game.won()) {
             window.cancelAnimationFrame(this.animationRequestId);
-            return
+            this.round += 1;
+            return true;
+        } else if (this.game.lost()) {
+            window.cancelAnimationFrame(this.animationRequestId);
+            return true;
         }
 
-        this.animationRequestId = window.requestAnimationFrame(this.gameLoop.bind(this));
+        return false;
     }
 
     bindKeyboardHandlers() {

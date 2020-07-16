@@ -1,6 +1,7 @@
 const constants = {
     COLOR: "rgb(46, 46, 46)",
-    RADIUS: 10
+    RADIUS: 10,
+    SPEED: 3
 }
 
 class SheepDog {
@@ -25,29 +26,29 @@ class SheepDog {
 
         if (this.pos[0] + this.radius <= this.ctx.canvas.width) {
             if (this.rightKey) {
-                this.pos[0] += 3;
-                this.vel[0] = 2;
+                this.pos[0] += constants.SPEED;
+                this.vel[0] = constants.SPEED - 1;
             }
         }
 
         if (this.leftKey) {
-            this.pos[0] -= 3;
-            this.vel[0] = -2;
+            this.pos[0] -= constants.SPEED;
+            this.vel[0] = -(constants.SPEED - 1);
         }
 
         if (!this.upKey && !this.downKey) this.vel[1] = 0;
 
         if (this.pos[1] + this.radius <= this.ctx.canvas.height) {
             if (this.downKey) {
-                this.pos[1] += 3;
-                this.vel[1] = 2;
+                this.pos[1] += constants.SPEED;
+                this.vel[1] = constants.SPEED - 1;
             }
         }
         
         if (this.pos[1] - this.radius >= 0) {
             if (this.upKey) {
-                this.pos[1] -= 3;
-                this.vel[1] = -2;
+                this.pos[1] -= constants.SPEED;
+                this.vel[1] = -(constants.SPEED - 1);
             }
         }
     }
@@ -96,17 +97,17 @@ class SheepDog {
     }
 
     collideWithSheep() {
-        if (this.vel[0] < 0) this.pos[0] += 3; 
-        if (this.vel[0] > 0) this.pos[0] -= 3; 
-        if (this.vel[1] < 0) this.pos[1] += 3; 
-        if (this.vel[1] > 0) this.pos[1] -= 3; 
+        if (this.vel[0] < 0) this.pos[0] += constants.SPEED; 
+        if (this.vel[0] > 0) this.pos[0] -= constants.SPEED; 
+        if (this.vel[1] < 0) this.pos[1] += constants.SPEED; 
+        if (this.vel[1] > 0) this.pos[1] -= constants.SPEED; 
     }
 
     collideWithObstacle(direction) {
-        if (direction === "left") this.pos[0] -= 3;
-        if (direction === "right") this.pos[0] += 3;
-        if (direction === "top") this.pos[1] -= 3;
-        if (direction === "bottom") this.pos[1] += 3;   
+        if (direction === "left") this.pos[0] -= constants.SPEED;
+        if (direction === "right") this.pos[0] += constants.SPEED;
+        if (direction === "top") this.pos[1] -= constants.SPEED;
+        if (direction === "bottom") this.pos[1] += constants.SPEED;   
     }
 }
 
