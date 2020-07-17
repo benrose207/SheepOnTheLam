@@ -6,12 +6,14 @@ import { isCollidedWith, resolveCollision } from "./util";
 
 const levelData = {
     1: {
-        numSheep: 8, //10
-        sheepSpeed: 0.25
+        numSheep: 5, //10
+        sheepSpeed: 0.25,
+        timeRemaining: "1:00"
     },
     2: {
         numSheep: 15, //15
-        sheepSpeed: 0.75
+        sheepSpeed: 0.75,
+        timeRemaining: "2:00"
     }
 }
 
@@ -27,6 +29,17 @@ class Game {
         this.addSheep();
         this.addSheepDog();
     }
+
+    ensureNewObjectPosition(newObject) {
+        const objects = this.allObjects();
+        for (let i = 0; i < objects.length; i++) {
+            const collided = isCollidedWith(newObject, objects[i]);
+            if (collided === true || collided.collided === true) {
+                newObject.pos = newObject.generateRandomPosition();
+                i = 0;
+            }
+        }
+    }
     
     addSheep() {
         let sheepImg = new Image();
@@ -34,19 +47,7 @@ class Game {
 
         for (let i = 0; i < this.numSheep; i++) {
             let newSheep = new Sheep(this.ctx, sheepImg, this.currentLevel.sheepSpeed);
-            const objects = this.allObjects();
-            
-            for (let j = 0; j < objects.length; j++) {
-                const collided = isCollidedWith(newSheep, objects[j]);
-                if (collided === true || collided.collided === true) {
-                    newSheep = new Sheep(
-                      this.ctx,
-                      sheepImg,
-                      this.currentLevel.sheepSpeed
-                    );
-                    j = 0;
-                }
-            }
+            this.ensureNewObjectPosition(newSheep);
             this.sheep.push(newSheep);
         }
     }
@@ -54,16 +55,9 @@ class Game {
     addSheepDog() {
         let img = new Image();
         img.src = "../assets/images/sheepdog.png";
-        const objects = this.allObjects();
         
         let sheepDog = new SheepDog(this.ctx, img);
-        for (let i = 0; i < objects.length; i++) {
-            const collided = isCollidedWith(sheepDog, objects[i]);
-            if (collided === true || collided.collided === true) {
-              sheepDog = new SheepDog(this.ctx, img);
-              i = 0;
-            }
-        }
+        this.ensureNewObjectPosition(sheepDog);
         this.sheepDog = sheepDog;
     }
 
@@ -75,16 +69,46 @@ class Game {
     }
     
     addTimer() {
-        this.timer = new Timer(this.ctx);
+        this.timer = new Timer(this.ctx, this.currentLevel.timeRemaining);
         this.stationaryObjects.push(this.timer);
         this.timer.countdown();
     }
+
+    // drawGrass(startX, startY) { // seems too laggy to do it this way. Maybe using image in background would be better. Consider just doing this around objects.
+    //     let radius = 10;
+    //     let startAngle = 3;
+    //     let endAngle = 4;
+
+    //     this.ctx.beginPath();
+    //     this.ctx.arc(startX, startY, radius, startAngle, endAngle);
+    //     this.ctx.strokeStyle = "green";
+    //     this.ctx.stroke();
+    //     this.ctx.closePath();
+
+    //     this.ctx.beginPath();
+    //     this.ctx.arc(startX, startY, radius / 2, startAngle, endAngle);
+    //     this.ctx.strokeStyle = "green";
+    //     this.ctx.stroke();
+    //     this.ctx.closePath();
+
+    //     this.ctx.beginPath();
+    //     this.ctx.arc(startX - 15, startY, radius - 2, 0, 5, true);
+    //     this.ctx.strokeStyle = "green";
+    //     this.ctx.stroke();
+    //     this.ctx.closePath();
+
+    //     this.ctx.beginPath();
+    //     this.ctx.arc(startX - 10, startY, radius, 0, 5, true);
+    //     this.ctx.strokeStyle = "green";
+    //     this.ctx.stroke();
+    //     this.ctx.closePath();
+    // }
 
     draw() {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.ctx.fillStyle = "rgb(126, 200, 80)";
         this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        
+
         // Add objects to canvas
         this.stationaryObjects.forEach(object => object.draw());
         this.sheep.forEach(sheep => sheep.draw());

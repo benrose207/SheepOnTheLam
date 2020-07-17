@@ -36,14 +36,15 @@ class GameView {
     roundOver() {
         if (this.game.won()) {
             window.cancelAnimationFrame(this.animationRequestId);
+            this.round += 1;
+
             this.menuTitle.innerHTML = "Great Job!";
             this.startButton.innerHTML = "Start";
-            
+
             if (this.round == 2) {
                 this.menuText.innerHTML = "It was good while it lasted, but somehow the sheep are out again! This time even more have escaped.";
             }
 
-            this.round += 1;
             return true;
         } else if (this.game.lost()) {
             window.cancelAnimationFrame(this.animationRequestId);
@@ -64,7 +65,10 @@ class GameView {
             this.start();
         }
 
-        this.startButton.addEventListener("click", startGame);
+        this.startButton.addEventListener("click", () => {
+            if (!this.inProgress) startGame();
+        });
+
         window.addEventListener("keydown", (e) => {
             if (e.keyCode === 13 && !this.inProgress) startGame();
         });

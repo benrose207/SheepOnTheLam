@@ -10,9 +10,7 @@ class SheepDog {
         this.radius = constants.RADIUS;
         this.color = constants.COLOR
 
-        const xPos = Math.random() * ((this.ctx.canvas.width - this.radius * 2) - 130) + 130;
-        const yPos = Math.random() * (this.ctx.canvas.height - this.radius * 2) + this.radius
-        this.pos = [xPos, yPos];
+        this.pos = this.generateRandomPosition();
         this.vel = [0, 0];
 
         this.rightKey = false;
@@ -31,6 +29,12 @@ class SheepDog {
         this.currentLoop = 0;
         this.currentRow = 0;
         this.frameCount = 0;
+    }
+
+    generateRandomPosition() {
+        const xPos = Math.random() * (this.ctx.canvas.width - this.radius * 2 - 130) + 130;
+        const yPos = Math.random() * (this.ctx.canvas.height - this.radius * 2) + this.radius;
+        return [xPos, yPos];
     }
 
     move() {

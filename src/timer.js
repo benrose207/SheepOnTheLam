@@ -1,10 +1,10 @@
 class Timer {
-    constructor(ctx) {
+    constructor(ctx, timeRemaining) {
         this.ctx = ctx;
         this.height = 80;
         this.width = 190;
         this.pos = [710, 0];
-        this.timeRemaining = "2:00";
+        this.timeRemaining = timeRemaining;
     }
 
     draw() {
