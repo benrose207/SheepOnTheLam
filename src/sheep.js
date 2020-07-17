@@ -2,7 +2,7 @@ import { randomVec } from "./util";
 
 const constants = {
     COLOR: "rgb(255, 255, 255)",
-    RADIUS: 25,
+    RADIUS: 32,
 }
 
 class Sheep {
@@ -34,6 +34,13 @@ class Sheep {
     }
 
     draw() {
+        this.ctx.beginPath();
+        this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
+        this.ctx.strokeStyle = "black";
+        this.ctx.stroke();
+        this.ctx.closePath();
+
+
         if (this.vel[0] === 0 && this.vel[1] === 0) {
             this.frameCount = 0;
         }
@@ -41,7 +48,7 @@ class Sheep {
         this.vel[0] <= 0 ? this.currentRow = 0 : this.currentRow = 1;
 
         this.frameCount++;
-        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 1, this.pos[1] - this.radius * 0.8);
+        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 0.8, this.pos[1] - this.radius * 0.6);
         if (this.frameCount < this.frameRate) {
             return
         }
