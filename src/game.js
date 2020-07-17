@@ -82,7 +82,7 @@ class Game {
 
     draw() {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        this.ctx.fillStyle = "rgb(149, 223, 114)";
+        this.ctx.fillStyle = "rgb(126, 200, 80)";
         this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         
         // Add objects to canvas
