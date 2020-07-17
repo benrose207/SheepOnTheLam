@@ -4,6 +4,8 @@ class GameView {
     constructor(ctx) {
         this.ctx = ctx;
         this.round = 1;
+        this.gameMenu = document.getElementById("start-menu");
+        this.gameMenuHandlers();
     }
     
     start() {
@@ -18,25 +20,33 @@ class GameView {
         this.game.draw(this.ctx);
 
         if (this.roundOver()) {
-            // this.ctx.canvas.classList.remove("top-element");
+            this.gameMenu.classList.toggle("hide");
         } else {
             this.animationRequestId = window.requestAnimationFrame(this.gameLoop.bind(this));
         }
     }
 
     roundOver() {
+        
         if (this.game.won()) {
             window.cancelAnimationFrame(this.animationRequestId);
             this.round += 1;
             return true;
         } else if (this.game.lost()) {
             window.cancelAnimationFrame(this.animationRequestId);
-            const lostMenu = document.getElementById("lost-menu");
-            lostMenu.classList.add("show");
+            this.round = 1;
             return true;
         }
 
         return false;
+    }
+
+    gameMenuHandlers() {
+        const startButton = document.querySelector(".start-button");
+        startButton.addEventListener("click", () => {
+            this.gameMenu.classList.toggle("hide");
+            this.start();
+        });
     }
 
     bindKeyboardHandlers() {

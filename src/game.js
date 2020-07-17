@@ -4,13 +4,21 @@ import FenceBox from "./fence";
 import Timer from "./timer";
 import { isCollidedWith, resolveCollision } from "./util";
 
-const gameConstants = {
-    NUM_SHEEP: 10
+const levelData = {
+    1: {
+        numSheep: 1, //10
+        sheepSpeed: 0.25
+    },
+    2: {
+        numSheep: 10, //15
+        sheepSpeed: 0.75
+    }
 }
 
 class Game {
-    constructor(ctx) {
-        this.numSheep = gameConstants.NUM_SHEEP;
+    constructor(ctx, levelNum) {
+        this.currentLevel = levelData[levelNum];
+        this.numSheep = this.currentLevel.numSheep;
         this.sheep = [];
         this.stationaryObjects = [];
         this.ctx = ctx;
@@ -25,13 +33,17 @@ class Game {
         img.src = "../assets/images/sheep_walking.png";
 
         for (let i = 0; i < this.numSheep; i++) {
-            let newSheep = new Sheep(this.ctx, img);
+            let newSheep = new Sheep(this.ctx, img, this.currentLevel.sheepSpeed);
             const objects = this.allObjects();
 
             for (let j = 0; j < objects.length; j++) {
                 const collided = isCollidedWith(newSheep, objects[j]);
                 if (collided === true || collided.collided === true) {
-                    newSheep = new Sheep(this.ctx, img);
+                    newSheep = new Sheep(
+                      this.ctx,
+                      img,
+                      this.currentLevel.sheepSpeed
+                    );
                     j = 0;
                 }
             }

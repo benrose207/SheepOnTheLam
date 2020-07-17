@@ -48,7 +48,7 @@ h1 {
     background-color: rgb(149, 223, 114);
 }
 
-.title-card {
+.menu-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,7 +57,7 @@ h1 {
 }
 
 
-.title-card > h2 {
+.menu-content > h2 {
     text-align: center;
     font-size: 40px;
     color: white;
@@ -73,9 +73,4 @@ h1 {
 .hide {
     opacity: 0;
     display: none;
-}
-
-.show {
-    opacity: 1;
-    display: flex;
 }

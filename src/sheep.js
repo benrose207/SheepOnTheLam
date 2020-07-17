@@ -3,18 +3,18 @@ import { randomVec } from "./util";
 const constants = {
     COLOR: "rgb(255, 255, 255)",
     RADIUS: 25,
-    SPEED: 0.25
 }
 
 class Sheep {
-    constructor(ctx, img) {
+    constructor(ctx, img, speed) {
         this.ctx = ctx;
         this.radius = constants.RADIUS;
+        this.speed = speed
 
         const xPos = Math.random() * ((this.ctx.canvas.width - this.radius * 2) - 175) + 175;
         const yPos = Math.random() * (this.ctx.canvas.height - this.radius * 2) + this.radius
         this.pos = [xPos, yPos];
-        this.vel = randomVec(constants.SPEED);
+        this.vel = randomVec(this.speed);
         this.friction = 0.02;
 
         this.img = img;
@@ -74,7 +74,7 @@ class Sheep {
             this.vel[1] = - this.vel[1];
         }
 
-        if (Math.abs(this.vel[0]) > constants.SPEED || Math.abs(this.vel[1]) > constants.SPEED) {
+        if (Math.abs(this.vel[0]) > this.speed || Math.abs(this.vel[1]) > this.speed) {
             this.frameRate = 8;
             if (this.vel[0] > 0) this.vel[0] -= this.friction;
             if (this.vel[0] < 0) this.vel[0] += this.friction;
