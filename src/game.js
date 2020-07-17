@@ -43,7 +43,7 @@ class Game {
     
     addSheep() {
         let sheepImg = new Image();
-        sheepImg.src = "../assets/images/sheep_walking.png";
+        sheepImg.src = "assets/images/sheep_walking.png";
 
         for (let i = 0; i < this.numSheep; i++) {
             let newSheep = new Sheep(this.ctx, sheepImg, this.currentLevel.sheepSpeed);
@@ -54,7 +54,7 @@ class Game {
 
     addSheepDog() {
         let img = new Image();
-        img.src = "../assets/images/sheepdog.png";
+        img.src = "assets/images/sheepdog.png";
         
         let sheepDog = new SheepDog(this.ctx, img);
         this.ensureNewObjectPosition(sheepDog);
