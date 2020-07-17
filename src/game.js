@@ -6,11 +6,11 @@ import { isCollidedWith, resolveCollision } from "./util";
 
 const levelData = {
     1: {
-        numSheep: 1, //10
+        numSheep: 8, //10
         sheepSpeed: 0.25
     },
     2: {
-        numSheep: 10, //15
+        numSheep: 15, //15
         sheepSpeed: 0.75
     }
 }
@@ -29,19 +29,19 @@ class Game {
     }
     
     addSheep() {
-        let img = new Image();
-        img.src = "../assets/images/sheep_walking.png";
+        let sheepImg = new Image();
+        sheepImg.src = "../assets/images/sheep_walking.png";
 
         for (let i = 0; i < this.numSheep; i++) {
-            let newSheep = new Sheep(this.ctx, img, this.currentLevel.sheepSpeed);
+            let newSheep = new Sheep(this.ctx, sheepImg, this.currentLevel.sheepSpeed);
             const objects = this.allObjects();
-
+            
             for (let j = 0; j < objects.length; j++) {
                 const collided = isCollidedWith(newSheep, objects[j]);
                 if (collided === true || collided.collided === true) {
                     newSheep = new Sheep(
                       this.ctx,
-                      img,
+                      sheepImg,
                       this.currentLevel.sheepSpeed
                     );
                     j = 0;
@@ -54,12 +54,14 @@ class Game {
     addSheepDog() {
         let img = new Image();
         img.src = "../assets/images/sheepdog.png";
-
+        const objects = this.allObjects();
+        
         let sheepDog = new SheepDog(this.ctx, img);
-        for (let i = 0; i < this.sheep.length; i++) {
-            if (isCollidedWith(sheepDog, this.sheep[i])) {
-                sheepDog = new SheepDog(this.ctx, img);
-                i = 0;
+        for (let i = 0; i < objects.length; i++) {
+            const collided = isCollidedWith(sheepDog, objects[i]);
+            if (collided === true || collided.collided === true) {
+              sheepDog = new SheepDog(this.ctx, img);
+              i = 0;
             }
         }
         this.sheepDog = sheepDog;

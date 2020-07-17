@@ -46,6 +46,11 @@ h1 {
     justify-content: center;
     align-items: center;
     background-color: rgb(149, 223, 114);
+    transition: opacity 1.5s;
+}
+
+.game-menu.hide {
+    opacity: 0;
 }
 
 .menu-content {
@@ -68,9 +73,4 @@ h1 {
     padding: 15px 40px;
     border-radius: 8px;
     margin: 15px;
-}
-
-.hide {
-    opacity: 0;
-    display: none;
 }

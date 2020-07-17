@@ -27,7 +27,6 @@ class GameView {
     }
 
     roundOver() {
-        
         if (this.game.won()) {
             window.cancelAnimationFrame(this.animationRequestId);
             this.round += 1;
