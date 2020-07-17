@@ -8,11 +8,11 @@ const levelData = {
     1: {
         numSheep: 5, //10
         sheepSpeed: 0.25,
-        timeRemaining: "1:00"
+        timeRemaining: "1:30"
     },
     2: {
         numSheep: 15, //15
-        sheepSpeed: 0.75,
+        sheepSpeed: 0.5,
         timeRemaining: "2:00"
     }
 }

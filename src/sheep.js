@@ -14,7 +14,6 @@ class Sheep {
         this.pos = this.generateRandomPosition();
         this.vel = randomVec(this.speed);
         this.friction = 0.02;
-        this.colliding = false;
 
         this.img = img;
         this.scale = 0.3;
@@ -93,23 +92,13 @@ class Sheep {
     }
 
     collideWithSheep(otherSheep) {
-        // if (this.colliding) {
-        //     this.vel[0] = otherSheep.vel[0];
-        //     this.vel[1] = otherSheep.vel[1];
-        //     this.colliding = false;
-        //     return
-        // }
-
-        this.colliding = true;
         this.vel[0] = 0;
         this.vel[1] = 0;
         
         let timeoutID = window.setTimeout(() => {
             this.vel[0] = otherSheep.vel[0];
             this.vel[1] = otherSheep.vel[1];
-            this.colliding = false;
         }, 200)
-
     }
 
     collideWithObstacle(direction) {
