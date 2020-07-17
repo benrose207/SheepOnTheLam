@@ -34,12 +34,12 @@ class Sheep {
     }
 
     draw() {
-        this.ctx.beginPath();
-        this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
-        this.ctx.strokeStyle = "black";
-        this.ctx.stroke();
-        this.ctx.closePath();
-
+        // Testing
+        // this.ctx.beginPath();
+        // this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
+        // this.ctx.strokeStyle = "black";
+        // this.ctx.stroke();
+        // this.ctx.closePath();
 
         if (this.vel[0] === 0 && this.vel[1] === 0) {
             this.frameCount = 0;
@@ -94,7 +94,7 @@ class Sheep {
             if (this.vel[1] < 0) this.vel[1] += this.friction;
         }
 
-        this.pos[0] += this.vel[0]
+        this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
     }
 

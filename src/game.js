@@ -2,16 +2,17 @@ import Sheep from "./sheep";
 import SheepDog from "./sheepdog";
 import FenceBox from "./fence";
 import Timer from "./timer";
+import HayBale from "./hay_bales";
 import { isCollidedWith, resolveCollision } from "./util";
 
 const levelData = {
     1: {
-        numSheep: 5, //10
+        numSheep: 5,
         sheepSpeed: 0.25,
         timeRemaining: "1:30"
     },
     2: {
-        numSheep: 15, //15
+        numSheep: 10,
         sheepSpeed: 0.5,
         timeRemaining: "2:00"
     }
@@ -25,6 +26,7 @@ class Game {
         this.stationaryObjects = [];
         this.ctx = ctx;
         this.addFences();
+        this.addHayBales();
         this.addTimer();
         this.addSheep();
         this.addSheepDog();
@@ -66,6 +68,11 @@ class Game {
         const fenceBottom = new FenceBox(this.ctx, 100, 350, 36, 225);
         const fenceBack = new FenceBox(this.ctx, -100, 0, 36, 550);
         this.stationaryObjects.push(fenceTop, fenceBottom, fenceBack);
+    }
+
+    addHayBales() {
+        let hayBale = new HayBale(this.ctx);
+        this.stationaryObjects.push(hayBale);
     }
     
     addTimer() {

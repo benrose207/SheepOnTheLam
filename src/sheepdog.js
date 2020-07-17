@@ -1,6 +1,6 @@
 const constants = {
     COLOR: "rgb(46, 46, 46)",
-    RADIUS: 50,
+    RADIUS: 23,
     SPEED: 3
 }
 
@@ -72,11 +72,12 @@ class SheepDog {
     }
 
     draw() {
-        this.ctx.beginPath();
-        this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
-        this.ctx.strokeStyle = "black";
-        this.ctx.stroke();
-        this.ctx.closePath();
+        // Testing
+        // this.ctx.beginPath();
+        // this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
+        // this.ctx.strokeStyle = "black";
+        // this.ctx.stroke();
+        // this.ctx.closePath();
 
         if (this.vel[0] === 0 && this.vel[1] === 0) {
             this.frameCount = 0;
@@ -91,7 +92,7 @@ class SheepDog {
         }
 
         this.frameCount++;
-        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 0.5, this.pos[1] - this.radius * 0.45);
+        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius, this.pos[1] - this.radius);
         if (this.frameCount < this.frameRate) {
             return // don't update animate unless specific # of frames have past
         }
