@@ -31,7 +31,7 @@ class Sheep {
 
     draw() {
         if (this.vel[0] === 0 && this.vel[1] === 0) {
-            this.frameRate = 60;
+            this.frameCount = 0;
         }
 
         this.vel[0] <= 0 ? this.currentRow = 0 : this.currentRow = 1;

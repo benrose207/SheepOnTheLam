@@ -52,10 +52,13 @@ class Game {
     }
 
     addSheepDog() {
-        let sheepDog = new SheepDog(this.ctx);
+        let img = new Image();
+        img.src = "../assets/images/sheepdog.png";
+
+        let sheepDog = new SheepDog(this.ctx, img);
         for (let i = 0; i < this.sheep.length; i++) {
             if (isCollidedWith(sheepDog, this.sheep[i])) {
-                sheepDog = new SheepDog(this.ctx);
+                sheepDog = new SheepDog(this.ctx, img);
                 i = 0;
             }
         }
