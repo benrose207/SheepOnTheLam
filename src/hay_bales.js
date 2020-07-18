@@ -5,19 +5,20 @@ class HayBale {
         this.height = 60;
         this.width = 60;
         this.pos = this.generateRandomPosition();
-        this.adjustedX = this.pos[0] + this.radius;
-        this.adjustedY = this.pos[1] + this.radius;
     }
 
     generateRandomPosition() {
         const xPos = Math.random() * (this.ctx.canvas.width - this.radius * 2 - 175) + 175;
-        const yPos = Math.random() * (this.ctx.canvas.height - this.radius * 2) + this.radius;
+        const yPos = Math.random() * (this.ctx.canvas.height - this.height * 2) + this.radius;
         return [xPos, yPos];
     }
 
     draw() {
+        const adjustedX = this.pos[0] + this.radius;
+        const adjustedY = this.pos[1] + this.radius;
+
         this.ctx.beginPath();
-        this.ctx.arc(this.adjustedX, this.adjustedY, this.radius, 0, 2 * Math.PI);
+        this.ctx.arc(adjustedX, adjustedY, this.radius, 0, 2 * Math.PI);
         this.ctx.fillStyle = "rgb(224, 197, 121)";
         this.ctx.fill();
         this.ctx.closePath();
@@ -25,7 +26,7 @@ class HayBale {
         // draw inner circles
         for (let i = 1; i < 4; i++) {
             this.ctx.beginPath();
-            this.ctx.arc(this.adjustedX, this.adjustedY, this.radius - (8 * i), 0, 2 * Math.PI);
+            this.ctx.arc(adjustedX, adjustedY, this.radius - (8 * i), 0, 2 * Math.PI);
             this.ctx.strokeStyle = "rgb(201, 177, 109)";
             this.ctx.stroke();
             this.ctx.closePath();

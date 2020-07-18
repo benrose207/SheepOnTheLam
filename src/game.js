@@ -7,14 +7,22 @@ import { isCollidedWith, resolveCollision } from "./util";
 
 const levelData = {
     1: {
-        numSheep: 5,
+        numSheep: 1,
         sheepSpeed: 0.25,
-        timeRemaining: "1:30"
+        timeRemaining: "1:30",
+        numHayBales: 0
     },
     2: {
+        numSheep: 1,
+        sheepSpeed: 0.6,
+        timeRemaining: "2:00",
+        numHayBales: 0
+    },
+    3: {
         numSheep: 10,
         sheepSpeed: 0.5,
-        timeRemaining: "2:00"
+        timeRemaining: "2:00",
+        numHayBales: 5
     }
 }
 
@@ -26,8 +34,8 @@ class Game {
         this.stationaryObjects = [];
         this.ctx = ctx;
         this.addFences();
-        this.addHayBales();
         this.addTimer();
+        this.addHayBales(this.currentLevel.numHayBales);
         this.addSheep();
         this.addSheepDog();
     }
@@ -70,9 +78,12 @@ class Game {
         this.stationaryObjects.push(fenceTop, fenceBottom, fenceBack);
     }
 
-    addHayBales() {
-        let hayBale = new HayBale(this.ctx);
-        this.stationaryObjects.push(hayBale);
+    addHayBales(numBales) {
+        for (let i = 0; i < numBales; i++) {
+            let hayBale = new HayBale(this.ctx);
+            this.ensureNewObjectPosition(hayBale);
+            this.stationaryObjects.push(hayBale);
+        }
     }
     
     addTimer() {
@@ -80,36 +91,6 @@ class Game {
         this.stationaryObjects.push(this.timer);
         this.timer.countdown();
     }
-
-    // drawGrass(startX, startY) { // seems too laggy to do it this way. Maybe using image in background would be better. Consider just doing this around objects.
-    //     let radius = 10;
-    //     let startAngle = 3;
-    //     let endAngle = 4;
-
-    //     this.ctx.beginPath();
-    //     this.ctx.arc(startX, startY, radius, startAngle, endAngle);
-    //     this.ctx.strokeStyle = "green";
-    //     this.ctx.stroke();
-    //     this.ctx.closePath();
-
-    //     this.ctx.beginPath();
-    //     this.ctx.arc(startX, startY, radius / 2, startAngle, endAngle);
-    //     this.ctx.strokeStyle = "green";
-    //     this.ctx.stroke();
-    //     this.ctx.closePath();
-
-    //     this.ctx.beginPath();
-    //     this.ctx.arc(startX - 15, startY, radius - 2, 0, 5, true);
-    //     this.ctx.strokeStyle = "green";
-    //     this.ctx.stroke();
-    //     this.ctx.closePath();
-
-    //     this.ctx.beginPath();
-    //     this.ctx.arc(startX - 10, startY, radius, 0, 5, true);
-    //     this.ctx.strokeStyle = "green";
-    //     this.ctx.stroke();
-    //     this.ctx.closePath();
-    // }
 
     draw() {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
