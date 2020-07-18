@@ -73,11 +73,11 @@ class SheepDog {
 
     draw() {
         // Testing
-        // this.ctx.beginPath();
-        // this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
-        // this.ctx.strokeStyle = "black";
-        // this.ctx.stroke();
-        // this.ctx.closePath();
+        this.ctx.beginPath();
+        this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
+        this.ctx.strokeStyle = "black";
+        this.ctx.stroke();
+        this.ctx.closePath();
 
         if (this.vel[0] === 0 && this.vel[1] === 0) {
             this.frameCount = 0;
@@ -156,10 +156,10 @@ class SheepDog {
     }
 
     collideWithObstacle(direction) {
-        if (direction === "left") this.pos[0] -= constants.SPEED;
-        if (direction === "right") this.pos[0] += constants.SPEED;
-        if (direction === "top") this.pos[1] -= constants.SPEED;
-        if (direction === "bottom") this.pos[1] += constants.SPEED;   
+        if (direction.includes("left")) this.pos[0] -= constants.SPEED;
+        if (direction.includes("right")) this.pos[0] += constants.SPEED;
+        if (direction.includes("top")) this.pos[1] -= constants.SPEED;
+        if (direction.includes("bottom")) this.pos[1] += constants.SPEED;   
     }
 }
 

@@ -35,11 +35,11 @@ class Sheep {
 
     draw() {
         // Testing
-        // this.ctx.beginPath();
-        // this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
-        // this.ctx.strokeStyle = "black";
-        // this.ctx.stroke();
-        // this.ctx.closePath();
+        this.ctx.beginPath();
+        this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
+        this.ctx.strokeStyle = "black";
+        this.ctx.stroke();
+        this.ctx.closePath();
 
         if (this.vel[0] === 0 && this.vel[1] === 0) {
             this.frameCount = 0;
@@ -109,8 +109,8 @@ class Sheep {
     }
 
     collideWithObstacle(direction) {
-        if (direction === "left" || direction === "right") this.vel[0] = -this.vel[0];
-        if (direction === "top" || direction === "bottom") this.vel[1] = -this.vel[1];
+        if (direction.includes("left") || direction.includes("right")) this.vel[0] = -this.vel[0];
+        if (direction.includes("top") || direction.includes("bottom")) this.vel[1] = -this.vel[1];
     }
 }
 

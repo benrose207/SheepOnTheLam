@@ -13,6 +13,13 @@ class Timer {
         this.ctx.strokeStyle = "rgb(90, 90, 90)";
         this.ctx.fillText(`${this.timeRemaining}`, 725, 70);
         this.ctx.strokeText(`${this.timeRemaining}`, 725, 70);
+
+        // Testing
+        this.ctx.beginPath();
+        this.ctx.rect(this.pos[0], this.pos[1], this.width, this.height);
+        this.ctx.strokeStyle = "black";
+        this.ctx.stroke();
+        this.ctx.closePath();
     }
 
     countdown() {

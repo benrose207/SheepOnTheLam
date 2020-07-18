@@ -7,7 +7,7 @@ import { isCollidedWith, resolveCollision } from "./util";
 
 const levelData = {
     1: {
-        numSheep: 1,
+        numSheep: 5,
         sheepSpeed: 0.25,
         timeRemaining: "1:30",
         numHayBales: 0

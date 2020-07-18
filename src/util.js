@@ -33,31 +33,32 @@ const collideCircleRectangle = (object1, otherObject) => {
     let testY = object1.pos[1];
     const rx = otherObject.pos[0]
     const ry = otherObject.pos[1]
-    let collisionDirection;
+
+    let collisionDirections = [];
 
     if (testX < rx) {
         testX = rx;
-        collisionDirection = "left";
+        collisionDirections.push("left");
     }
     if (testX > rx + otherObject.width) {
         testX = rx + otherObject.width;
-        collisionDirection = "right";
+        collisionDirections.push("right");
     }
 
     if (testY < ry) {
         testY = ry;
-        collisionDirection = "top";
+        collisionDirections.push("top");
     }
     if (testY > ry + otherObject.height) {
         testY = ry + otherObject.height;
-        collisionDirection = "bottom";
+        collisionDirections.push("bottom");
     }
 
     const distX = object1.pos[0] - testX;
     const distY = object1.pos[1] - testY;
     const distance = Math.sqrt((distX * distX) + (distY * distY)) - 5;
 
-    return { collided: distance <= object1.radius, direction: collisionDirection }
+    return { collided: distance <= object1.radius, direction: collisionDirections }
 }
 
 const rotateVelocities = (velocity, angle) => {
