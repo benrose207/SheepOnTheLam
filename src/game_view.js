@@ -41,8 +41,10 @@ class GameView {
             this.menuTitle.innerHTML = "Great Job!";
             this.startButton.innerHTML = "Start";
 
-            if (this.round == 2) {
+            if (this.round === 2) {
                 this.menuText.innerHTML = "It was good while it lasted, but somehow the sheep are out again! This time even more have escaped.";
+            } else if (this.round === 3) {
+                this.menuText.innerHTML = "You're becoming an expert! But can you navigate the hay bales to get sheep back in time again?"
             }
 
             return true;

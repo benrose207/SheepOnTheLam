@@ -2,7 +2,7 @@ import { randomVec } from "./util";
 
 const constants = {
     COLOR: "rgb(255, 255, 255)",
-    RADIUS: 25,
+    RADIUS: 32,
 }
 
 class Sheep {
@@ -14,7 +14,6 @@ class Sheep {
         this.pos = this.generateRandomPosition();
         this.vel = randomVec(this.speed);
         this.friction = 0.02;
-        this.colliding = false;
 
         this.img = img;
         this.scale = 0.3;
@@ -35,6 +34,13 @@ class Sheep {
     }
 
     draw() {
+        // Testing
+        // this.ctx.beginPath();
+        // this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
+        // this.ctx.strokeStyle = "black";
+        // this.ctx.stroke();
+        // this.ctx.closePath();
+
         if (this.vel[0] === 0 && this.vel[1] === 0) {
             this.frameCount = 0;
         }
@@ -42,7 +48,7 @@ class Sheep {
         this.vel[0] <= 0 ? this.currentRow = 0 : this.currentRow = 1;
 
         this.frameCount++;
-        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 1, this.pos[1] - this.radius * 0.8);
+        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 0.8, this.pos[1] - this.radius * 0.6);
         if (this.frameCount < this.frameRate) {
             return
         }
@@ -88,28 +94,18 @@ class Sheep {
             if (this.vel[1] < 0) this.vel[1] += this.friction;
         }
 
-        this.pos[0] += this.vel[0]
+        this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
     }
 
     collideWithSheep(otherSheep) {
-        // if (this.colliding) {
-        //     this.vel[0] = otherSheep.vel[0];
-        //     this.vel[1] = otherSheep.vel[1];
-        //     this.colliding = false;
-        //     return
-        // }
-
-        this.colliding = true;
         this.vel[0] = 0;
         this.vel[1] = 0;
         
         let timeoutID = window.setTimeout(() => {
             this.vel[0] = otherSheep.vel[0];
             this.vel[1] = otherSheep.vel[1];
-            this.colliding = false;
         }, 200)
-
     }
 
     collideWithObstacle(direction) {

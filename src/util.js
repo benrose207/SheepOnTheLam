@@ -25,7 +25,7 @@ const collideCircles = (object1, otherObject) => {
     );
     
     if (otherObject instanceof SheepDog) return distanceBtwn < radiiSum + 30;
-    return distanceBtwn < radiiSum + 8;
+    return distanceBtwn < radiiSum;
 }
 
 const collideCircleRectangle = (object1, otherObject) => {
@@ -88,7 +88,7 @@ export const resolveCollision = (obj1, obj2) => {
         const v1 = [(u1.x * (m1 - m2) / (m1 + m2) + u2.x * 2 * m2 / (m1 + m2)), u1.y]
 
         const finalV1 = rotateVelocities(v1, -angle);
-
+        
         obj1.vel[0] = finalV1.x;
         obj1.vel[1] = finalV1.y;
     }

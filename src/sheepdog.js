@@ -72,8 +72,13 @@ class SheepDog {
     }
 
     draw() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fill();
+        // Testing
+        // this.ctx.beginPath();
+        // this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
+        // this.ctx.strokeStyle = "black";
+        // this.ctx.stroke();
+        // this.ctx.closePath();
+
         if (this.vel[0] === 0 && this.vel[1] === 0) {
             this.frameCount = 0;
             this.currentLoop = 0;
