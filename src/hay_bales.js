@@ -24,11 +24,11 @@ class HayBale {
         this.ctx.closePath();
 
         // Begin Testing
-        this.ctx.beginPath();
-        this.ctx.rect(this.pos[0], this.pos[1], this.width, this.height);
-        this.ctx.strokeStyle = "black";
-        this.ctx.stroke();
-        this.ctx.closePath();
+        // this.ctx.beginPath();
+        // this.ctx.rect(this.pos[0], this.pos[1], this.width, this.height);
+        // this.ctx.strokeStyle = "black";
+        // this.ctx.stroke();
+        // this.ctx.closePath();
         //End Testing
 
         // draw inner circles

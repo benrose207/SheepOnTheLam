@@ -15,11 +15,12 @@ class Timer {
         this.ctx.strokeText(`${this.timeRemaining}`, 725, 70);
 
         // Testing
-        this.ctx.beginPath();
-        this.ctx.rect(this.pos[0], this.pos[1], this.width, this.height);
-        this.ctx.strokeStyle = "black";
-        this.ctx.stroke();
-        this.ctx.closePath();
+        // this.ctx.beginPath();
+        // this.ctx.rect(this.pos[0], this.pos[1], this.width, this.height);
+        // this.ctx.strokeStyle = "black";
+        // this.ctx.stroke();
+        // this.ctx.closePath();
+        // End Testing
     }
 
     countdown() {
