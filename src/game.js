@@ -7,10 +7,10 @@ import { isCollidedWith, resolveCollision } from "./util";
 
 const levelData = {
     1: {
-        numSheep: 5,
+        numSheep: 10,
         sheepSpeed: 0.25,
         timeRemaining: "1:30",
-        numHayBales: 0
+        numHayBales: 5
     },
     2: {
         numSheep: 1,
@@ -145,7 +145,9 @@ class Game {
 
                 if (isCollidedWith(sheep, compareObj)) {
                     resolveCollision(sheep, compareObj); // resets colliding sheep's velocity 
-                    compareObj.collideWithSheep(sheep); // handles reaction of other object
+                    if (compareObj instanceof SheepDog) {
+                        compareObj.collideWithSheep(sheep); // handles reaction of other object
+                    }
                 }
             }
             this.checkSheepObstacleCollisions(sheep);
