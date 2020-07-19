@@ -1,5 +1,4 @@
 body {
-    /* background-color: rgba(230, 230, 230); */
     background-color: rgb(170, 170, 170);
     font-family: 'Roboto', sans-serif;
 }
@@ -22,7 +21,7 @@ h1 {
         -1px 1px 0 rgb(90, 90, 90),
         1px 1px 0 rgb(90, 90, 90);
     font-size: 80px;
-    margin: 30px;
+    margin: 20px;
 }
 
 .game-view-container {
@@ -46,7 +45,6 @@ h1 {
     flex-direction: column;
     align-items: center;
     background-color: rgb(96, 165, 53);
-    /* background-color: rgb(126,200,80); */
     transition: opacity 1.5s;
 }
 
