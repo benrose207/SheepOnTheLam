@@ -5,30 +5,9 @@ import Timer from "./timer";
 import HayBale from "./hay_bales";
 import { isCollidedWith, resolveCollision } from "./util";
 
-const levelData = {
-    1: {
-        numSheep: 1,
-        sheepSpeed: 0.25,
-        timeRemaining: "1:30",
-        numHayBales: 0
-    },
-    2: {
-        numSheep: 1,
-        sheepSpeed: 0.6,
-        timeRemaining: "2:00",
-        numHayBales: 0
-    },
-    3: {
-        numSheep: 10,
-        sheepSpeed: 0.5,
-        timeRemaining: "2:00",
-        numHayBales: 5
-    }
-}
-
 class Game {
-    constructor(ctx, levelNum) {
-        this.currentLevel = levelData[levelNum];
+    constructor(ctx, levelData) {
+        this.currentLevel = levelData;
         this.numSheep = this.currentLevel.numSheep;
         this.sheep = [];
         this.stationaryObjects = [];
@@ -145,7 +124,9 @@ class Game {
 
                 if (isCollidedWith(sheep, compareObj)) {
                     resolveCollision(sheep, compareObj); // resets colliding sheep's velocity 
-                    compareObj.collideWithSheep(sheep); // handles reaction of other object
+                    if (compareObj instanceof SheepDog) {
+                        compareObj.collideWithSheep(sheep); // handles reaction of other object
+                    }
                 }
             }
             this.checkSheepObstacleCollisions(sheep);

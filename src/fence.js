@@ -9,6 +9,10 @@ class FenceBox {
     draw() {
         this.ctx.beginPath();
         this.ctx.rect(this.pos[0], this.pos[1], this.width, this.height);
+        // Start Testing
+        // this.ctx.strokeStyle = "black";
+        // this.ctx.stroke();
+        // End Testing
         this.ctx.closePath();
 
         this.ctx.beginPath();

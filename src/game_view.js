@@ -1,4 +1,5 @@
 import Game from "./game";
+import levels from "./levels";
 
 class GameView {
     constructor(ctx) {
@@ -14,7 +15,7 @@ class GameView {
     }
     
     start() {
-        this.game = new Game(this.ctx, this.round);
+        this.game = new Game(this.ctx, levels[this.round]);
         this.inProgress = true;
         this.bindGameHandlers();
         this.gameLoop();
@@ -38,13 +39,14 @@ class GameView {
             window.cancelAnimationFrame(this.animationRequestId);
             this.round += 1;
 
-            this.menuTitle.innerHTML = "Great Job!";
-            this.startButton.innerHTML = "Start";
-
-            if (this.round === 2) {
-                this.menuText.innerHTML = "It was good while it lasted, but somehow the sheep are out again! This time even more have escaped.";
-            } else if (this.round === 3) {
-                this.menuText.innerHTML = "You're becoming an expert! But can you navigate the hay bales to get sheep back in time again?"
+            this.menuTitle.innerHTML = levels[this.round].menuTitle;
+            this.menuText.innerHTML = levels[this.round].menuText;
+            
+            if (this.round < 4) {
+                this.startButton.innerHTML = "Start";
+            } else {
+                this.startButton.innerHTML = "Play Again";
+                this.round = 1;
             }
 
             return true;
