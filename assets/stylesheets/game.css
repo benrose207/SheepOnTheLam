@@ -88,3 +88,17 @@ h1 {
     border-radius: 8px;
     margin: 15px;
 }
+
+.personal-links {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    bottom: 20px;
+    right: 20px;
+}
+
+.personal-links svg {
+    font-size: 45px;
+    margin: 10px 10px;
+    color: white;
+}
