@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property='og:title' content='Sheep on the Lam' />
+    <meta property='og:image' content='./assets/images/game_screenshot.png' />
+    <meta property='og:description' content='Herd the sheep back into their pasture before time runs out!' />
+    <meta property='og:url' content='https://benrose207.github.io/SheepOnTheLam/' />
     <title>Sheep on the Lam</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Modak&family=Roboto:wght@400;500;700&display=swap"
@@ -13,8 +17,12 @@
     <script src="./dist/main.js" type="text/javascript"></script>
 </head>
 <body>
-    <main>
+    <header>
+        <div class="sheep-image"></div>
         <h1>Sheep on the Lam</h1>
+        <div class="sheepdog-image"></div>
+    </header>
+    <main>
         <div class="game-view-container">
             <canvas id="game-canvas"></canvas>
             <div class="game-menu" id="start-menu">
