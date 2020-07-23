@@ -1,17 +1,16 @@
 import MovingObject from "./moving_object";
 
 const constants = {
-    COLOR: "rgb(255, 255, 255)",
-    RADIUS: 32,
+    RADIUS: 26,
 }
 
-class Sheep extends MovingObject {
+class Goat extends MovingObject {
     constructor(ctx, img, speed) {
         super(ctx, img, constants.RADIUS, speed);
 
-        this.scale = 0.3;
+        this.scale = 0.25;
         this.frameWidth = 160;
-        this.frameHeight = 124;
+        this.frameHeight = 144;
         this.scaledWidth = this.scale * this.frameWidth;
         this.scaledHeight = this.scale * this.frameHeight;
         this.numCols = 3;
@@ -33,7 +32,7 @@ class Sheep extends MovingObject {
         this.vel[0] <= 0 ? this.currentRow = 0 : this.currentRow = 1;
 
         this.frameCount++;
-        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 0.8, this.pos[1] - this.radius * 0.6);
+        this.drawFrame(this.currentLoop, this.currentRow, this.pos[0] - this.radius * 0.8, this.pos[1] - this.radius * 0.8);
         if (this.frameCount < this.frameRate) {
             return
         }
@@ -68,20 +67,6 @@ class Sheep extends MovingObject {
         this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
     }
-
-    // collideWithSheep(otherSheep) {
-    //     const sheep1Speed = Math.sqrt(this.vel[0] ** 2 + this.vel[1] ** 2);
-    //     const sheep2Speed = Math.sqrt(otherSheep.vel[0] ** 2 + otherSheep.vel[1] ** 2);
-
-    //     if (sheep2Speed > sheep1Speed) {
-    //         this.vel[0] = otherSheep.vel[0];
-    //         this.vel[1] = otherSheep.vel[1];
-    //     } else {
-    //         otherSheep.vel[0] = this.vel[0];
-    //         otherSheep.vel[1] = this.vel[1];
-    //     }
-
-    // }
 }
 
-export default Sheep;
+export default Goat;

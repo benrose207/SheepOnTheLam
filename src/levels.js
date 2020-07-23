@@ -2,6 +2,8 @@ const levels = {
     1: {
         numSheep: 5,
         sheepSpeed: 0.25,
+        numGoats: 10,
+        goatSpeed: 0.5,
         timeRemaining: "1:30",
         numHayBales: 0,
         menuTitle: "Great Job!",
@@ -9,6 +11,8 @@ const levels = {
     2: {
         numSheep: 10,
         sheepSpeed: 0.6,
+        numGoats: 0,
+        goatSpeed: 0.25,
         timeRemaining: "2:00",
         numHayBales: 0,
         menuTitle: "Great Job!",
@@ -17,6 +21,8 @@ const levels = {
     3: {
         numSheep: 10,
         sheepSpeed: 0.5,
+        numGoats: 0,
+        goatSpeed: 0.25,
         timeRemaining: "2:00",
         numHayBales: 8,
         menuTitle: "Great Job!",

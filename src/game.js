@@ -1,5 +1,6 @@
 import Sheep from "./sheep";
 import SheepDog from "./sheepdog";
+import Goat from "./goat";
 import FenceBox from "./fence";
 import Timer from "./timer";
 import HayBale from "./hay_bales";
@@ -9,13 +10,16 @@ class Game {
     constructor(ctx, levelData) {
         this.currentLevel = levelData;
         this.numSheep = this.currentLevel.numSheep;
+        this.numGoats = this.currentLevel.numGoats;
         this.sheep = [];
+        this.goats = [];
         this.stationaryObjects = [];
         this.ctx = ctx;
         this.addFences();
         this.addTimer();
         this.addHayBales(this.currentLevel.numHayBales);
         this.addSheep();
+        this.addGoats();
         this.addSheepDog();
     }
 
@@ -25,7 +29,7 @@ class Game {
             const collided = isCollidedWith(newObject, objects[i]);
             if (collided === true || collided.collided === true) {
                 newObject.pos = newObject.generateRandomPosition();
-                i = 0;
+                i = -1;
             }
         }
     }
@@ -38,6 +42,17 @@ class Game {
             let newSheep = new Sheep(this.ctx, sheepImg, this.currentLevel.sheepSpeed);
             this.ensureNewObjectPosition(newSheep);
             this.sheep.push(newSheep);
+        }
+    }
+    
+    addGoats() {
+        let goatImg = new Image();
+        goatImg.src = "assets/images/goat.png";
+
+        for (let i = 0; i < this.numGoats; i++) {
+            let newGoat = new Goat(this.ctx, goatImg, this.currentLevel.goatSpeed);
+            this.ensureNewObjectPosition(newGoat);
+            this.goats.push(newGoat);
         }
     }
 
@@ -79,6 +94,7 @@ class Game {
         // Add objects to canvas
         this.stationaryObjects.forEach(object => object.draw());
         this.sheep.forEach(sheep => sheep.draw());
+        this.goats.forEach(goat => goat.draw());
         this.sheepDog.draw();
 
         // Sheep remaining counter
@@ -101,6 +117,7 @@ class Game {
 
     moveObjects() {
         this.sheep.forEach(sheep => sheep.move());
+        this.goats.forEach(goat => goat.move());
         this.sheepDog.move();
     }
 
@@ -109,7 +126,7 @@ class Game {
     }
 
     allObjects() {
-        const objects = this.sheep.concat(this.stationaryObjects);
+        const objects = this.sheep.concat(this.goats, this.stationaryObjects);
         if (this.sheepDog) objects.push(this.sheepDog);
         return objects;
     }

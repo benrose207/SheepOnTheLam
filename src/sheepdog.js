@@ -8,7 +8,8 @@ class SheepDog {
     constructor(ctx, img) {
         this.ctx = ctx;
         this.radius = constants.RADIUS;
-        this.color = constants.COLOR
+        this.color = constants.COLOR;
+        this.objectShape = "circle";
 
         this.pos = this.generateRandomPosition();
         this.vel = [0, 0];

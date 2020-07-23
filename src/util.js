@@ -1,6 +1,5 @@
 import Sheep from "./sheep";
 import SheepDog from "./sheepdog";
-import HayBale from "./hay_bales";
 
 // Random vector calculations
 
@@ -16,9 +15,9 @@ const scale = (vec, m) => {
 // Collision detections functions
 
 export const isCollidedWith = (object1, otherObject) => {
-    if (otherObject instanceof Sheep || otherObject instanceof SheepDog) {
+    if (otherObject.objectShape === "circle") {
         return collideCircles(object1, otherObject);
-    } else if (object1 instanceof HayBale && otherObject instanceof HayBale) {
+    } else if (object1.object1 === "rect" && otherObject.objectShape === "rect") {
         return collideRectangles(object1, otherObject);
     } else {
         return collideCircleRectangle(object1, otherObject);

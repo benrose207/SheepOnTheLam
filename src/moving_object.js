@@ -3,8 +3,9 @@ import { randomVec } from "./util";
 class MovingObject {
     constructor(ctx, img, radius, speed) {
         this.ctx = ctx;
-        this.radius = radius
+        this.radius = radius;
         this.speed = speed;
+        this.objectShape = "circle";
 
         this.pos = this.generateRandomPosition();
         this.vel = randomVec(this.speed);
