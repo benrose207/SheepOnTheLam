@@ -1,4 +1,3 @@
-import Sheep from "./sheep";
 import SheepDog from "./sheepdog";
 
 // Random vector calculations
@@ -117,7 +116,7 @@ export const resolveCollision = (obj1, obj2) => {
         obj1.vel[0] = finalV1.x;
         obj1.vel[1] = finalV1.y;
         
-        if (obj2 instanceof Sheep) {
+        if (!(obj2 instanceof SheepDog)) {
             obj2.vel[0] = finalV2.x;
             obj2.vel[1] = finalV2.y;
         }

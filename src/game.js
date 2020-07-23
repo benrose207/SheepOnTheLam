@@ -121,8 +121,8 @@ class Game {
         this.sheepDog.move();
     }
 
-    allMovingObjects() {
-        return this.sheep.concat(this.sheepDog);
+    allHerdAnimals() {
+        return this.sheep.concat(this.goats);
     }
 
     allObjects() {
@@ -132,30 +132,30 @@ class Game {
     }
 
     checkCollision() {
-        const movingObjects = this.allMovingObjects();
-
-        for (let i = 0; i < this.sheep.length; i++) { // Checks whether any sheep has collided with something
-            const sheep = this.sheep[i];
+        const herdAnimals = this.allHerdAnimals();
+        const movingObjects = herdAnimals.concat(this.sheepDog);
+        
+        for (let i = 0; i < herdAnimals.length; i++) { // Checks whether any herd animal has collided with something
+            const herdAnimal = herdAnimals[i];
             for (let j = i + 1; j < movingObjects.length; j++) { // Checking against other moving objects
                 const compareObj = movingObjects[j];
-
-                if (isCollidedWith(sheep, compareObj)) {
-                    resolveCollision(sheep, compareObj); // resets colliding sheep's velocity 
+                if (isCollidedWith(herdAnimal, compareObj)) {
+                    resolveCollision(herdAnimal, compareObj); // resets colliding animals's velocity 
                     if (compareObj instanceof SheepDog) {
-                        compareObj.collideWithSheep(sheep); // handles reaction of other object
+                        compareObj.collideWithSheep(herdAnimal); // handles reaction of other sheepdog
                     }
                 }
             }
-            this.checkSheepObstacleCollisions(sheep);
+            this.checkHerdAnimalObstacleCollisions(herdAnimal);
         }
         this.checkSheepdogObstacleCollisions();
     }
 
-    checkSheepObstacleCollisions(sheep) {
+    checkHerdAnimalObstacleCollisions(herdAnimal) {
         for (let i = 0; i < this.stationaryObjects.length; i++) {
             const stationaryObj = this.stationaryObjects[i];
-            const { collided, direction } = isCollidedWith(sheep, stationaryObj);
-            if (collided) sheep.collideWithObstacle(direction);
+            const { collided, direction } = isCollidedWith(herdAnimal, stationaryObj);
+            if (collided) herdAnimal.collideWithObstacle(direction);
         }
     }
 
