@@ -152,7 +152,6 @@ class Game {
     
     sheepRemaining() {
         let count = 0;
-        
         this.sheep.forEach(sheep => {
             if (sheep.pos[0] > 85) count += 1;
         })
