@@ -116,7 +116,7 @@ export const resolveCollision = (obj1, obj2) => {
         obj1.vel[0] = finalV1.x;
         obj1.vel[1] = finalV1.y;
         
-        if (!(obj2 instanceof SheepDog)) {
+        if (!(obj2 instanceof SheepDog)) { // Change both ojects velocities, unless the second one is a sheepdog
             obj2.vel[0] = finalV2.x;
             obj2.vel[1] = finalV2.y;
         }

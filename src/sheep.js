@@ -68,20 +68,6 @@ class Sheep extends MovingObject {
         this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
     }
-
-    // collideWithSheep(otherSheep) {
-    //     const sheep1Speed = Math.sqrt(this.vel[0] ** 2 + this.vel[1] ** 2);
-    //     const sheep2Speed = Math.sqrt(otherSheep.vel[0] ** 2 + otherSheep.vel[1] ** 2);
-
-    //     if (sheep2Speed > sheep1Speed) {
-    //         this.vel[0] = otherSheep.vel[0];
-    //         this.vel[1] = otherSheep.vel[1];
-    //     } else {
-    //         otherSheep.vel[0] = this.vel[0];
-    //         otherSheep.vel[1] = this.vel[1];
-    //     }
-
-    // }
 }
 
 export default Sheep;
