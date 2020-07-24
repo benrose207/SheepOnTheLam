@@ -15,6 +15,8 @@ class Game {
         this.goats = [];
         this.stationaryObjects = [];
         this.ctx = ctx;
+        this.gameLost = false;
+
         this.addFences();
         this.addTimer();
         this.addHayBales(this.currentLevel.numHayBales);
@@ -66,10 +68,24 @@ class Game {
     }
 
     addFences() {
-        const fenceTop = new FenceBox(this.ctx, 100, 0, 36, 225);
-        const fenceBottom = new FenceBox(this.ctx, 100, 350, 36, 225);
-        const fenceBack = new FenceBox(this.ctx, -100, 0, 36, 550);
-        this.stationaryObjects.push(fenceTop, fenceBottom, fenceBack);
+        const fenceWidth = 36;
+        const fences = []
+
+        if (this.numGoats === 0) {
+            const fenceTop = new FenceBox(this.ctx, 100, 0, fenceWidth, 225);
+            const fenceBottom = new FenceBox(this.ctx, 100, 350, fenceWidth, 225);
+            const fenceBack = new FenceBox(this.ctx, -100, 0, fenceWidth, 550);
+            fences.push(fenceTop, fenceBottom, fenceBack);
+        } else {
+            const fenceTop = new FenceBox(this.ctx, 100, 0, fenceWidth, 80)
+            const fenceMiddleY = new FenceBox(this.ctx, 100, 195, fenceWidth, 160)
+            const fenceMiddleX = new FenceBox(this.ctx, -200, 257, 300, fenceWidth, true)
+            const fenceBottom = new FenceBox(this.ctx, 100, 470, fenceWidth, 80)
+            const fenceBack = new FenceBox(this.ctx, -200, 0, fenceWidth, 550);
+            fences.push(fenceTop, fenceBottom, fenceBack, fenceMiddleY, fenceMiddleX);
+        }
+
+        this.stationaryObjects = this.stationaryObjects.concat(fences);
     }
 
     addHayBales(numBales) {
@@ -98,6 +114,11 @@ class Game {
         this.sheepDog.draw();
 
         // Sheep remaining counter
+        this.drawSheepCounter();
+        if (this.numGoats > 0) this.drawGoatCounter();
+    }
+
+    drawSheepCounter() {
         this.ctx.font = "19px Roboto";
         this.ctx.fillStyle = "white";
         this.ctx.fillText("Sheep", 25, 30);
@@ -113,6 +134,26 @@ class Game {
         const countXPos = sheepLeft < 10 ? 30 : 15;
         this.ctx.fillText(`${sheepLeft}`, countXPos, 120);
         this.ctx.strokeText(`${sheepLeft}`, countXPos, 120);
+    }
+
+    drawGoatCounter() {
+        const goatsLeft = this.goatsRemaining();
+
+        this.ctx.font = "19px Roboto";
+        this.ctx.fillStyle = "white";
+        const counterText = goatsLeft === 1 ? "Goat" : "Goats";
+        this.ctx.fillText(counterText, 28, 505);
+
+        this.ctx.font = "19px Roboto";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText("Remaining", 5, 530);
+
+        this.ctx.font = '80px Modak';
+        this.ctx.fillStyle = "white"
+        this.ctx.strokeStyle = "rgb(90, 90, 90)";
+        const countXPos = goatsLeft < 10 ? 30 : 15;
+        this.ctx.fillText(`${goatsLeft}`, countXPos, 480);
+        this.ctx.strokeText(`${goatsLeft}`, countXPos, 480);
     }
 
     moveObjects() {
@@ -170,18 +211,33 @@ class Game {
     sheepRemaining() {
         let count = 0;
         this.sheep.forEach(sheep => {
-            if (sheep.pos[0] > 85) count += 1;
+            if (this.numGoats === 0) {
+                if (sheep.pos[0] > 85) count += 1;
+            } else {
+                if (sheep.pos[0] > 85 || sheep.pos[1] > 257) count += 1;
+                if (sheep.pos[0] < 85 && sheep.pos[1] > 257) this.gameLost = true;
+            }
         })
         
         return count;
     }
+
+    goatsRemaining() {
+        let count = 0;
+        this.goats.forEach(goat => {
+            if (goat.pos[0] > 85 || goat.pos[1] < 257) count += 1;
+            if (goat.pos[0] < 85 && goat.pos[1] < 257) this.gameLost = true;
+        })
+
+        return count;
+    }
     
     won() {   
-        return this.sheepRemaining() === 0;
+        return this.sheepRemaining() === 0 && this.goatsRemaining() === 0;
     }
 
     lost() {
-        return this.timer.timeRemaining === "0:00";
+        return this.timer.timeRemaining === "0:00" || this.gameLost;
     }
 
     gameOver() {

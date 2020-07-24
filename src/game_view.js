@@ -42,7 +42,7 @@ class GameView {
             this.menuTitle.innerHTML = levels[this.round].menuTitle;
             this.menuText.innerHTML = levels[this.round].menuText;
             
-            if (this.round < 4) {
+            if (this.round < 5) {
                 this.startButton.innerHTML = "Start";
             } else {
                 this.startButton.innerHTML = "Play Again";

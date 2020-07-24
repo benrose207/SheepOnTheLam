@@ -1,12 +1,14 @@
 class FenceBox {
-    constructor(ctx, x, y, width, height) {
+    constructor(ctx, x, y, width, height, rotated) {
         this.ctx = ctx;
         this.pos = [x, y];
         this.width = width;
         this.height = height;
+        this.rotated = rotated;
     }
 
     draw() {
+        // Build hit box for collisions
         this.ctx.beginPath();
         this.ctx.rect(this.pos[0], this.pos[1], this.width, this.height);
         // Start Testing
@@ -15,6 +17,11 @@ class FenceBox {
         // End Testing
         this.ctx.closePath();
 
+        this.rotated ? this.drawDetailsHorizontal() : this.drawDetailsVertical();
+    }
+
+    drawDetailsVertical() {
+        // Add main fence railings
         this.ctx.beginPath();
         this.ctx.rect(this.pos[0] + 5, this.pos[1], 8, this.height);
         this.ctx.fillStyle = "rgb(125, 106, 62)";
@@ -27,15 +34,43 @@ class FenceBox {
         this.ctx.fill();
         this.ctx.closePath();
 
+        // Add fenceposts
         let offset = 20;
-        for (let i = 0; i < 6; i++) {
+        while (offset < this.height) {
             this.ctx.beginPath();
             this.ctx.rect(this.pos[0], this.pos[1] + offset, this.width, 5);
             this.ctx.fillStyle = "rgb(125, 106, 62)";
             this.ctx.fill();
             this.ctx.closePath();
 
-            offset += (this.height / 6);
+            offset += 37.5;
+        }
+    }
+
+    drawDetailsHorizontal() {
+        // Add main fence railings
+        this.ctx.beginPath();
+        this.ctx.rect(this.pos[0], this.pos[1] + 5, this.width, 8);
+        this.ctx.fillStyle = "rgb(125, 106, 62)";
+        this.ctx.fill();
+        this.ctx.closePath();
+
+        this.ctx.beginPath();
+        this.ctx.rect(this.pos[0], this.pos[1] + 22, this.width, 8);
+        this.ctx.fillStyle = "rgb(125, 106, 62)";
+        this.ctx.fill();
+        this.ctx.closePath();
+
+        // Add fenceposts
+        let offset = 20;
+        while (offset < this.width) {
+            this.ctx.beginPath();
+            this.ctx.rect(this.pos[0] + offset, this.pos[1], 5, this.height);
+            this.ctx.fillStyle = "rgb(125, 106, 62)";
+            this.ctx.fill();
+            this.ctx.closePath();
+
+            offset += 37.5;
         }
     }
 }

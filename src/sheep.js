@@ -19,11 +19,11 @@ class Sheep extends MovingObject {
 
     draw() {
         // Testing
-        this.ctx.beginPath();
-        this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
-        this.ctx.strokeStyle = "black";
-        this.ctx.stroke();
-        this.ctx.closePath();
+        // this.ctx.beginPath();
+        // this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
+        // this.ctx.strokeStyle = "black";
+        // this.ctx.stroke();
+        // this.ctx.closePath();
         // End Testing
 
         if (this.vel[0] === 0 && this.vel[1] === 0) {
