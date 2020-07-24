@@ -1,13 +1,12 @@
 import MovingObject from "./moving_object";
 
-const constants = {
-    COLOR: "rgb(255, 255, 255)",
+const sheepConstants = {
     RADIUS: 32,
 }
 
 class Sheep extends MovingObject {
     constructor(ctx, img, speed) {
-        super(ctx, img, constants.RADIUS, speed);
+        super(ctx, img, sheepConstants.RADIUS, speed);
 
         this.scale = 0.3;
         this.frameWidth = 160;
