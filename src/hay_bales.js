@@ -5,6 +5,7 @@ class HayBale {
         this.height = 60;
         this.width = 60;
         this.pos = this.generateRandomPosition();
+        this.objectShape = "rect";
     }
 
     generateRandomPosition() {
