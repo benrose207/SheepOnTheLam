@@ -46,7 +46,7 @@ class HayBale {
         }
     }
 
-    drawGrass(startX, startY) { // seems too laggy to do it this way. Maybe using image in background would be better. Consider just doing this around objects.
+    drawGrass(startX, startY) { 
         let radius = 10;
         let startAngle = 3;
         let endAngle = 4;
