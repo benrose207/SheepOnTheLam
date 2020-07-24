@@ -74,7 +74,7 @@ class Sheep extends MovingObject {
 ### Simulating Sheep Response to Sheepdog
 One challenge of creating this game was to at least approximate some realistic interactions between the animals in the game. In the case of the the sheep's interaction with the sheepdog, I wanted to have the sheep respond to the sheepdog's proximity by "running away" from it, but then slowing back down a more standard speed once they were no longer close. 
 
-[ insert GIF here ]
+![Sheep Velocity Change Example](/assets/demo_files/sheep-velocity-example.gif)
 
 In order to achieve this effect, I started by implementing realistic collision interactions between the sheep and the sheepdog. When the two objects in the game "collide" the sheep responds by moving away from the sheepdog at a faster pace, as the dog is moving faster than the sheep. However the key to solving this problem was adding an additional "friction" variable to the sheep objects. With this established, I updated my `move()` function for sheep objects so that any time the sheep's velocity was over a certain threshold, the friction variable would be applied until their velocity was at or below the threshold. I also combined this with an adjustment to the rate at which the sheep image was animated, so further visualize the change in speed.
 
