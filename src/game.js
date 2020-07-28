@@ -49,7 +49,7 @@ class Game {
     
     addGoats() {
         let goatImg = new Image();
-        goatImg.src = "assets/images/goat.png";
+        goatImg.src = "assets/images/goat4.png";
 
         for (let i = 0; i < this.numGoats; i++) {
             let newGoat = new Goat(this.ctx, goatImg, this.currentLevel.goatSpeed);

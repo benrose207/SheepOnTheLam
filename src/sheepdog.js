@@ -1,5 +1,4 @@
 const constants = {
-    COLOR: "rgb(46, 46, 46)",
     RADIUS: 23,
     SPEED: 3
 }
@@ -8,7 +7,6 @@ class SheepDog {
     constructor(ctx, img) {
         this.ctx = ctx;
         this.radius = constants.RADIUS;
-        this.color = constants.COLOR;
         this.objectShape = "circle";
 
         this.pos = this.generateRandomPosition();

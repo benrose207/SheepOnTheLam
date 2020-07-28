@@ -1,6 +1,6 @@
 import SheepDog from "./sheepdog";
 
-// Random vector calculations
+// Object Initialization functions
 
 export const randomVec = (length) => {
     const deg = 2 * Math.PI * Math.random();
