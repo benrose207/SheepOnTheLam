@@ -21,7 +21,7 @@ Once you have herded all the sheep back into the pasture, you will be presented 
 ## Feature Highlights
 
 ### ES6 Classes and Inheritance
-I used ES6 classes and and import/export syntax throughout this project to cleanly separate game and object logic. In particular, I took advantage of the ES6 class implementation of JavaScript's prototypal inheritance in setting up my Sheep and Goat classes. Since these two game objects share many similar variables and functions, I created a parent class (`MovingObject`) and then set up Sheep and Goat classes that extended this class, and held any functions or variables that were not shared. This allowed for DRYer code, and easier maintenance of both classes. 
+I used ES6 classes and import/export syntax throughout this project to cleanly separate game and object logic. In particular, I took advantage of the ES6 class implementation of JavaScript's prototypal inheritance in setting up my Sheep and Goat classes. Since these two game objects share many similar variables and functions, I created a parent class (`MovingObject`) and then set up Sheep and Goat classes that extended this class, and held any functions or variables that were not shared. This allowed for DRYer code, and easier maintenance of both classes. 
 
 ```js
 import { randomVec } from "./util";
@@ -72,11 +72,11 @@ class Sheep extends MovingObject {
 ```
 
 ### Simulating Sheep Response to Sheepdog
-One challenge of creating this game was to at least approximate some realistic interactions between the animals in the game. In the case of the the sheep's interaction with the sheepdog, I wanted to have the sheep respond to the sheepdog's proximity by "running away" from it, but then slowing back down a more standard speed once they were no longer close. 
+One challenge of creating this game was to at least approximate some realistic interactions between the animals. In the case of the the sheep's interaction with the sheepdog, I wanted to have the sheep respond to the sheepdog's proximity by "running away" from it, but then slowing back down a standard speed once they were no longer close. 
 
 ![Sheep Velocity Change Example](/assets/demo_files/sheep-velocity-example.gif)
 
-In order to achieve this effect, I started by implementing realistic collision interactions between the sheep and the sheepdog. When the two objects in the game "collide" the sheep responds by moving away from the sheepdog at a faster pace, as the dog is moving faster than the sheep. However the key to solving this problem was adding an additional "friction" variable to the sheep objects. With this established, I updated my `move()` function for sheep objects so that any time the sheep's velocity was over a certain threshold, the friction variable would be applied until their velocity was at or below the threshold. I also combined this with an adjustment to the rate at which the sheep image was animated, so further visualize the change in speed.
+In order to achieve this effect, I started by implementing realistic collision interactions between the sheep and the sheepdog. When the two objects in the game "collide" the sheep responds by moving away from the sheepdog at a faster pace, as the dog is moving faster than the sheep. However the key to solving this problem was adding an additional "friction" variable to the sheep objects. With this established, I updated my `move()` function for sheep objects so that any time the sheep's velocity was over a certain threshold, the friction variable would be applied until their velocity was at or below the threshold. I also combined this with an adjustment to the rate at which the sheep image was animated, to further visualize the change in speed.
 
 ```js
 move() {
@@ -95,10 +95,10 @@ move() {
 }
 ```
 
-Ultimately, this had the desired effect -- the sheep sped up upon "colliding" with the sheepdog, but then begin to slow back down to their baseline speed as soon as they are no longer colliding. 
+Ultimately, this had the desired effect -- the sheep speed up upon "colliding" with the sheepdog, but then begin to slow back down to their baseline speed as soon as they are no longer colliding. 
 
 ### Game Level Management
-One addition challenge in designing this game was how to manage the differences in objects and elements for the various levels. In order to implement this, create plain JavaScript object that held all of the variables for each level such as the number and speed of sheep and goats, the number of hay bales, and even any different text to display in the messages prior to each level.
+One additional challenge in designing this game was how to manage the differences in objects and elements for the various levels. In order to implement this, I created a plain JavaScript object that holds all of the variables for each level such as the number and speed of sheep and goats, the number of hay bales, and even any different text to display in the messages prior to each level.
 
 ```js
 const levels = {
@@ -117,7 +117,7 @@ const levels = {
 }
 ```
 
-By keeping track of the game's level in my file that managed the overall state and animation of the game, I was able to easily grab the relevant level data using the object's keys, and pass the value associated with that key (the variables specific to that level) down into the necessary game components. 
+By keeping track of the game's level in my file that manages the overall state and animation of the game, I was able to easily grab the relevant level data using the object's keys, and pass the value associated with that key (the variables specific to that level) down into the necessary game components. 
 
 ```js
 import Game from "./game";
@@ -156,7 +156,7 @@ class Game {
 
 This strategy had two primary benefits:
 * I could very quickly and easily make adjustments to the variables for any given level, which helped to calibrate the game difficulty, and greatly aided in testing.
-* It became almost trivial to add additional levels to game, because the actual game components and functions all referenced the key names in the level object received the game management file. 
+* It became almost trivial to add additional levels to the game, because the actual game components and functions all referenced the key names in the level object received from the game management file. 
 
 ![Level 3 Screenshot](/assets/demo_files/level-3-screenshot.png)
 
