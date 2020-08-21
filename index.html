@@ -10,9 +10,20 @@
 
         gtag('config', 'UA-175985833-2');
     </script>
+    <script>
+        const getOutboundLink = (action, label) => {
+            gtag('event', 'click', {
+                'event_category': 'click',
+                'event_action': action,
+                'event_label': label,
+                'transport_type': 'beacon',
+            });
+        }
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Herd the sheep back into their pasture before time runs out! A browser-based game inpired by a childhood growing up in Maine."> 
     <meta property='og:title' content='Sheep on the Lam' />
     <meta property='og:image' content='https://raw.githubusercontent.com/benrose207/SheepOnTheLam/master/assets/images/game_screenshot.png' />
     <meta property='og:description' content='Herd the sheep back into their pasture before time runs out!' />
@@ -47,13 +58,28 @@
         </div>
     </main>
     <aside class="personal-links">
-        <a href="https://github.com/benrose207/SheepOnTheLam" target="_blank">
+        <a 
+            href="https://github.com/benrose207/SheepOnTheLam" 
+            target="_blank" 
+            onclick="getOutboundLink('github', 'sidebar');"
+            aria-label="github"
+        >
             <i class="fab fa-github-square"></i>
         </a>
-        <a href="https://www.linkedin.com/in/benjamin-rose-483549124" target="_blank">
+        <a 
+            href="https://www.linkedin.com/in/benjamin-rose-483549124" 
+            target="_blank" 
+            onclick="getOutboundLink('linkedin', 'sidebar');"
+            aria-label="linkedin"
+        >
             <i class="fab fa-linkedin"></i>
         </a>
-        <a href="https://angel.co/benjamin-rose-2" target="_blank">
+        <a 
+            href="https://angel.co/benjamin-rose-2" 
+            target="_blank" 
+            onclick="getOutboundLink('angellist', 'sidebar');"
+            aria-label="angellist"
+        >
             <i class="fab fa-angellist"></i>
         </a>
     </aside>
