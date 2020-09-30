@@ -16,6 +16,7 @@ class GameView {
 
   start() {
     this.game = new Game(this.ctx, levels[this.round]);
+    this.menuTitle.dataset.round = this.round;
     this.inProgress = true;
     this.bindGameHandlers();
     this.gameLoop();
