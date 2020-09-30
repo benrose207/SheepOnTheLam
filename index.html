@@ -52,7 +52,10 @@
                 <div class="menu-content">
                     <h2 class="menu-title">Help!</h2>
                     <p class="menu-text">The sheep have escaped their pasture. Press Enter or click Start to begin, and use the arrow keys to move the sheepdog and herd the sheep back in before time runs out!</p>
-                    <button class="start-button">Start</button>
+                    <button 
+                        class="start-button"
+                        onclick="getOutboundLink('playGame', `${document.querySelector('.menu-title').innerHTML}`);"
+                    >Start</button>
                 </div>
             </div>
         </div>
